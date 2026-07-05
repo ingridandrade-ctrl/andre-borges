@@ -300,9 +300,11 @@ body {
     box-shadow: none;
   }
 
-  /* ---------- cards de situação (medalhões) ---------- */
+  /* ---------- cards de situação (medalhões) ----------
+     Card mais profundo que o sage puro: as pinturas sépia/esverdeadas
+     saltam por contraste de valor em vez de se fundir ao fundo. */
   .situacao-card {
-    background: var(--sage);
+    background: color-mix(in oklab, var(--sage) 55%, var(--ink-deep));
     border: 1px solid color-mix(in oklab, var(--bone) 12%, transparent);
     box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.45);
   }
@@ -313,7 +315,14 @@ body {
     display: block;
     margin: calc(var(--medallion-size) / -2) auto 1.35rem;
     border-radius: 50%;
-    filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.4));
+    filter: none;
+    /* passe-partout creme + fio ember (reforça a moldura dourada da arte)
+       e sombra de contato direcional (assenta o medalhão no topo do card) */
+    box-shadow:
+      0 0 0 3px var(--bone-warm),
+      0 0 0 4px color-mix(in oklab, var(--ember) 55%, transparent),
+      0 2px 1px rgba(0, 0, 0, 0.5),
+      0 18px 24px -12px rgba(0, 0, 0, 0.55);
     transition: transform var(--dur-slow) var(--ease-out-quint);
   }
   .situacao-card:hover .medallion { transform: scale(1.04) rotate(1.5deg); }
