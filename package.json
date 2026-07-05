@@ -1,0 +1,13 @@
+{
+  "name": "andre-borges-site",
+  "version": "1.0.0",
+  "description": "Site de André Borges — Psicólogo de Relacionamentos | Pirassununga/SP",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -c tailwind.config.js -i src/styles.css -o assets/css/styles.css --minify",
+    "watch:css": "tailwindcss -c tailwind.config.js -i src/styles.css -o assets/css/styles.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

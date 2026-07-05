@@ -1,0 +1,285 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Tema — paleta editorial terrosa
+   (reconstruída a partir do DOM salvo: --bone-warm e --ink-deep
+   vazaram em estilos inline; as demais foram recriadas)
+   ============================================================ */
+:root {
+  --bone: #faf8f2;
+  --bone-rgb: 250 248 242;
+  --bone-warm: #f2f0e9;
+  --bone-warm-rgb: 242 240 233;
+  --bone-blue: #e3e8e2;
+
+  --ink: #1e2c24;
+  --ink-rgb: 30 44 36;
+  --ink-deep: #14201a;
+  --ink-deep-rgb: 20 32 26;
+  --ink-soft: #5a665e;
+  --ink-soft-rgb: 90 102 94;
+
+  --ember: #e08b5e;
+  --ember-rgb: 224 139 94;
+  --ember-deep: #b05430;
+  --ember-deep-rgb: 176 84 48;
+  --ember-dark: #40261a;
+
+  --moss: #71835f;
+  --moss-rgb: 113 131 95;
+  --moss-light: #b8c9a3;
+  --moss-light-rgb: 184 201 163;
+
+  --border: color-mix(in oklab, var(--ink) 12%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: theme('fontFamily.sans');
+  background: var(--bone-warm);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--ember) 35%, transparent);
+}
+
+@layer components {
+  /* ---------- tipografia editorial ---------- */
+  .display-xl {
+    font-family: theme('fontFamily.display');
+    font-weight: 600;
+    font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem);
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+  }
+  .display-l {
+    font-family: theme('fontFamily.display');
+    font-weight: 600;
+    font-size: clamp(1.55rem, 1.1rem + 1.8vw, 2.3rem);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+  }
+  .section-lede {
+    font-family: theme('fontFamily.sans');
+    font-weight: 300;
+    font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.18rem);
+    line-height: 1.65;
+    letter-spacing: 0.005em;
+    color: var(--ink-soft);
+    max-width: 46rem;
+  }
+  .section-lede.on-dark,
+  .on-dark .section-lede {
+    color: color-mix(in oklab, var(--bone) 82%, transparent);
+  }
+  .card-title {
+    font-family: theme('fontFamily.display');
+    font-weight: 600;
+    font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .card-body {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .plate {
+    font-family: theme('fontFamily.mono');
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .pull-quote {
+    font-family: theme('fontFamily.display');
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.85rem);
+    line-height: 1.45;
+  }
+  .body-on-dark {
+    color: color-mix(in oklab, var(--bone) 86%, transparent);
+  }
+  .body-on-dark strong {
+    color: var(--bone);
+  }
+  .drop-cap::first-letter {
+    font-family: theme('fontFamily.display');
+    font-style: italic;
+    float: left;
+    font-size: 3.1em;
+    line-height: 0.82;
+    padding-right: 0.14em;
+    color: var(--ember);
+  }
+
+  /* ---------- textura de grão ---------- */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+  .grain > * {
+    position: relative;
+    z-index: 2;
+  }
+  .grain > .absolute.-z-0,
+  .grain > [aria-hidden].absolute {
+    z-index: 0;
+  }
+
+  /* ---------- marquee ---------- */
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+  }
+  .marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    min-width: 100%;
+    gap: 2rem;
+    padding-right: 2rem;
+    justify-content: space-around;
+    animation: marquee 38s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+
+  /* ---------- botões ---------- */
+  .btn-ink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: var(--ink-deep);
+    color: var(--bone);
+    font-family: theme('fontFamily.sans');
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    padding: 0.95rem 1.7rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in oklab, var(--bone) 12%, transparent);
+    box-shadow: 0 18px 36px -18px rgba(20, 32, 26, 0.55);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s, box-shadow 0.4s;
+    will-change: transform;
+  }
+  .btn-ink:hover {
+    transform: translateY(-2px);
+    background: var(--ink);
+    box-shadow: 0 24px 44px -18px rgba(20, 32, 26, 0.6);
+  }
+  /* nas seções escuras o botão vira ember para manter contraste */
+  .on-dark .btn-ink,
+  #o-que-escuto .btn-ink,
+  #agendar .btn-ink {
+    background: var(--ember);
+    color: var(--ink-deep);
+    border-color: color-mix(in oklab, var(--ink-deep) 15%, transparent);
+    box-shadow: 0 18px 36px -16px rgba(0, 0, 0, 0.5);
+  }
+  .on-dark .btn-ink:hover,
+  #o-que-escuto .btn-ink:hover,
+  #agendar .btn-ink:hover {
+    background: color-mix(in oklab, var(--ember) 88%, white);
+  }
+
+  /* ---------- cartões editoriais ---------- */
+  .editorial-card {
+    background: var(--bone);
+    border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
+    border-radius: 1.5rem;
+    box-shadow: 0 22px 44px -30px rgba(20, 32, 26, 0.25);
+  }
+  .on-dark .editorial-card {
+    background: color-mix(in oklab, var(--bone) 6%, transparent);
+    border-color: color-mix(in oklab, var(--bone) 14%, transparent);
+    box-shadow: none;
+  }
+
+  /* ---------- linha do tempo (abordagem) ---------- */
+  .timeline-rail {
+    position: absolute;
+    left: 1.1rem;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    width: 2px;
+    border-radius: 2px;
+    background: color-mix(in oklab, var(--bone) 14%, transparent);
+    overflow: hidden;
+  }
+  .timeline-rail-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: var(--rail, 0%);
+    background: var(--ember);
+    transition: height 0.25s linear;
+  }
+  .timeline-dot {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--ember);
+    box-shadow: 0 0 0 5px color-mix(in oklab, var(--ember) 18%, transparent);
+  }
+
+  /* ---------- detalhes ---------- */
+  .tilt-l { transform: rotate(-1.5deg); }
+  .tilt-r { transform: rotate(2deg); }
+  .vignette { position: relative; }
+  .vignette::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 70px rgba(20, 32, 26, 0.35);
+    border-radius: inherit;
+  }
+
+  /* ---------- animações de entrada ---------- */
+  .reveal {
+    opacity: 0;
+    animation: fade-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  .reveal-delay-1 { animation-delay: 0.15s; }
+  .reveal-delay-2 { animation-delay: 0.3s; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; }
+  }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee {
+  to { transform: translateX(calc(-100% - 2rem)); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* cursor custom só em ponteiros precisos */
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot { display: none !important; }
+}
