@@ -34,8 +34,9 @@ salvo ("Salvar como → Página completa").
 
 ### Medalhões da seção "Você já se viu em alguma dessas situações?"
 
-Em `assets/img/situacoes/` — um por card, recorte circular com fundo
-transparente (WebP, ~520px). Substituir mantendo os nomes:
+Em `assets/img/situacoes/` — **artes finais** fornecidas pelo cliente:
+pinturas em medalhão com moldura dourada, recortadas em círculo com fundo
+transparente (WebP, 520px). Para trocar, mantenha os mesmos nomes:
 
 | Arquivo | Card |
 |---|---|
