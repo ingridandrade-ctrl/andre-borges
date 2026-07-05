@@ -23,14 +23,30 @@ fotos reais, basta substituir os arquivos **mantendo os mesmos nomes**:
 |---|---|
 | `andre-portrait-Deb0SfYB.jpg` | Retrato do André (seção "Quem sou") |
 | `office-C20hA_43.jpg` | Foto do consultório (seção FAQ) |
-| `diptych-desktop-BRiQt_hI.png` | Fundo desktop da seção "Não é falta de amor" |
-| `diptych-couple-DIebyvob.png` | Foto do casal (mesma seção, mobile) |
-| `manifesto-leighton-DSFRYqsM.png` | Pintura de fundo do manifesto (11% opacidade) |
+| `diptych-desktop-BRiQt_hI.webp` | Fundo desktop da seção "Não é falta de amor" |
+| `diptych-couple-DIebyvob.webp` | Foto do casal (hero desktop + mesma seção no mobile) |
+| `manifesto-leighton-DSFRYqsM.webp` | Pintura de fundo do manifesto (11% opacidade) |
 | `closing-mobile.webp` | Fundo mobile da seção final |
 | `secaofinal-desktop.webp` | Fundo desktop da seção final |
 
 Essas fotos estão na pasta `..._files/` que o navegador criou junto do HTML
 salvo ("Salvar como → Página completa").
+
+### Medalhões da seção "Você já se viu em alguma dessas situações?"
+
+Em `assets/img/situacoes/` — um por card, recorte circular com fundo
+transparente (WebP, ~520px). Substituir mantendo os nomes:
+
+| Arquivo | Card |
+|---|---|
+| `situacao-brigas.webp` | "A gente tenta conversar, mas sempre termina em briga." |
+| `situacao-afastamento.webp` | "Sinto que a gente se afastou." |
+| `situacao-espelho.webp` | "Às vezes me pergunto se sou eu o problema." |
+| `situacao-conflitos.webp` | "A gente repete os mesmos conflitos." |
+| `situacao-encruzilhada.webp` | "Vale investir ou já passou do ponto?" |
+| `situacao-sozinha.webp` | "Estou carregando isso sozinha." |
+| `situacao-filho.webp` | "Quando o filho chegou, a gente parou de ser casal." |
+| `situacao-solidao.webp` | "Durmo do lado dele todo dia e me sinto completamente só." |
 
 ## Observações da reconstrução
 

@@ -3,36 +3,54 @@
 @tailwind utilities;
 
 /* ============================================================
-   Tema — paleta editorial terrosa
-   (reconstruída a partir do DOM salvo: --bone-warm e --ink-deep
-   vazaram em estilos inline; as demais foram recriadas)
+   DESIGN TOKENS
+   1. Primitivas de cor (NÃO renomear — referenciadas em inline
+      styles do DOM herdado do site original)
+   2. Aliases semânticos  3. Sombras  4. Raio  5. Motion
    ============================================================ */
 :root {
-  --bone: #faf8f2;
-  --bone-rgb: 250 248 242;
-  --bone-warm: #f2f0e9;
-  --bone-warm-rgb: 242 240 233;
-  --bone-blue: #e3e8e2;
+  /* == 1. Primitivas de cor == */
+  --bone: #faf8f2;        --bone-rgb: 250 248 242;
+  --bone-warm: #f2f0e9;   --bone-warm-rgb: 242 240 233;
+  --bone-blue: #e3e8e2;   --bone-blue-rgb: 227 232 226;
+  --ink: #1e2c24;         --ink-rgb: 30 44 36;
+  --ink-deep: #14201a;    --ink-deep-rgb: 20 32 26;
+  --ink-soft: #5a665e;    --ink-soft-rgb: 90 102 94;
+  --ember: #e08b5e;       --ember-rgb: 224 139 94;
+  --ember-deep: #b05430;  --ember-deep-rgb: 176 84 48;
+  /* vinho da seção "situações" (referência visual do cliente) */
+  --wine: #5d2130;        --wine-rgb: 93 33 48;
+  --ember-dark: var(--wine); --ember-dark-rgb: 93 33 48;
+  /* verde-sálvia dos cards de situação */
+  --sage: #4e5b50;        --sage-rgb: 78 91 80;
+  --moss: #71835f;        --moss-rgb: 113 131 95;
+  --moss-light: #b8c9a3;  --moss-light-rgb: 184 201 163;
 
-  --ink: #1e2c24;
-  --ink-rgb: 30 44 36;
-  --ink-deep: #14201a;
-  --ink-deep-rgb: 20 32 26;
-  --ink-soft: #5a665e;
-  --ink-soft-rgb: 90 102 94;
-
-  --ember: #e08b5e;
-  --ember-rgb: 224 139 94;
-  --ember-deep: #b05430;
-  --ember-deep-rgb: 176 84 48;
-  --ember-dark: #40261a;
-
-  --moss: #71835f;
-  --moss-rgb: 113 131 95;
-  --moss-light: #b8c9a3;
-  --moss-light-rgb: 184 201 163;
-
+  /* == 2. Semânticos == */
   --border: color-mix(in oklab, var(--ink) 12%, transparent);
+  --border-subtle: color-mix(in oklab, var(--ink) 10%, transparent);
+  --border-on-dark: color-mix(in oklab, var(--bone) 14%, transparent);
+  --text-on-dark: color-mix(in oklab, var(--bone) 85%, transparent);
+  --ring: var(--ember-deep);
+
+  /* == 3. Sombras == */
+  --shadow-card: 0 22px 44px -30px rgba(20, 32, 26, 0.25);
+  --shadow-btn: 0 18px 36px -18px rgba(20, 32, 26, 0.55);
+  --shadow-btn-hover: 0 24px 44px -18px rgba(20, 32, 26, 0.6);
+  --shadow-float: 0 30px 60px -30px rgba(0, 0, 0, 0.5);
+
+  /* == 4. Raio == */
+  --radius-card: 1.5rem;
+  --radius-pill: 999px;
+
+  /* == 5. Motion == */
+  --ease-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 250ms;
+  --dur-base: 400ms;
+  --dur-slow: 700ms;
+  --dur-reveal: 900ms;
 }
 
 html {
@@ -51,8 +69,43 @@ body {
   background: color-mix(in oklab, var(--ember) 35%, transparent);
 }
 
+/* ---------- foco visível (teclado) ---------- */
+.on-dark { --ring: var(--moss-light); }
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.btn-ink:focus-visible { outline-offset: 4px; border-radius: var(--radius-pill); }
+#o-que-escuto :where(a, button):focus-visible,
+#quem-sou :where(a, button):focus-visible,
+#agendar :where(a, button):focus-visible { outline-color: var(--moss-light); }
+
+/* ---------- skip link ---------- */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 200;
+  transform: translateY(-300%);
+  background: var(--ink-deep);
+  color: var(--bone);
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  transition: transform 0.2s var(--ease-soft);
+}
+.skip-link:focus-visible { transform: none; }
+
 @layer components {
   /* ---------- tipografia editorial ---------- */
+  .display-hero {
+    font-family: theme('fontFamily.display');
+    font-weight: 600;
+    font-size: clamp(2.15rem, 1.3rem + 3.4vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
   .display-xl {
     font-family: theme('fontFamily.display');
     font-weight: 600;
@@ -78,7 +131,7 @@ body {
   }
   .section-lede.on-dark,
   .on-dark .section-lede {
-    color: color-mix(in oklab, var(--bone) 82%, transparent);
+    color: var(--text-on-dark);
   }
   .card-title {
     font-family: theme('fontFamily.display');
@@ -120,6 +173,21 @@ body {
     padding-right: 0.14em;
     color: var(--ember);
   }
+  /* em colunas estreitas o drop-cap fatia a palavra — só desktop */
+  @media (max-width: 767px) {
+    .drop-cap::first-letter {
+      float: none;
+      font-size: inherit;
+      font-style: inherit;
+      font-family: inherit;
+      padding-right: 0;
+      color: inherit;
+    }
+  }
+
+  /* contraste: destaques ember sobre fundos claros usam o tom deep */
+  .bg-bone .text-ember,
+  .bg-bone-warm .text-ember { color: var(--ember-deep); }
 
   /* ---------- textura de grão ---------- */
   .grain::after {
@@ -143,9 +211,12 @@ body {
 
   /* ---------- marquee ---------- */
   .marquee {
+    --marquee-duration: 38s;
     display: flex;
     overflow: hidden;
     user-select: none;
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
   }
   .marquee-track {
     display: flex;
@@ -154,7 +225,11 @@ body {
     gap: 2rem;
     padding-right: 2rem;
     justify-content: space-around;
-    animation: marquee 38s linear infinite;
+    animation: marquee var(--marquee-duration) linear infinite;
+  }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @media (max-width: 640px) {
+    .marquee { --marquee-duration: 26s; }
   }
   @media (prefers-reduced-motion: reduce) {
     .marquee-track { animation: none; }
@@ -172,16 +247,30 @@ body {
     font-weight: 500;
     letter-spacing: 0.01em;
     padding: 0.95rem 1.7rem;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     border: 1px solid color-mix(in oklab, var(--bone) 12%, transparent);
-    box-shadow: 0 18px 36px -18px rgba(20, 32, 26, 0.55);
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s, box-shadow 0.4s;
+    box-shadow: var(--shadow-btn);
+    transition: transform 0.5s var(--ease-spring), background 0.3s, box-shadow 0.5s;
     will-change: transform;
   }
   .btn-ink:hover {
     transform: translateY(-2px);
     background: var(--ink);
-    box-shadow: 0 24px 44px -18px rgba(20, 32, 26, 0.6);
+    box-shadow: var(--shadow-btn-hover);
+  }
+  .btn-ink:active {
+    transform: translateY(0) scale(0.97);
+    transition-duration: 0.15s;
+  }
+  .btn-ink svg { transition: transform var(--dur-base) var(--ease-spring); }
+  .btn-ink:hover svg { transform: translate(2px, -2px); }
+  .btn-bone-text { color: var(--bone); }
+  @media (max-width: 480px) {
+    .btn-ink {
+      font-size: 0.875rem;
+      padding: 0.85rem 1.35rem;
+      white-space: nowrap;
+    }
   }
   /* nas seções escuras o botão vira ember para manter contraste */
   .on-dark .btn-ink,
@@ -201,15 +290,33 @@ body {
   /* ---------- cartões editoriais ---------- */
   .editorial-card {
     background: var(--bone);
-    border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
-    border-radius: 1.5rem;
-    box-shadow: 0 22px 44px -30px rgba(20, 32, 26, 0.25);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
   }
   .on-dark .editorial-card {
     background: color-mix(in oklab, var(--bone) 6%, transparent);
-    border-color: color-mix(in oklab, var(--bone) 14%, transparent);
+    border-color: var(--border-on-dark);
     box-shadow: none;
   }
+
+  /* ---------- cards de situação (medalhões) ---------- */
+  .situacao-card {
+    background: var(--sage);
+    border: 1px solid color-mix(in oklab, var(--bone) 12%, transparent);
+    box-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.45);
+  }
+  .medallion {
+    --medallion-size: clamp(104px, 12vw, 140px);
+    width: var(--medallion-size);
+    height: var(--medallion-size);
+    display: block;
+    margin: calc(var(--medallion-size) / -2) auto 1.35rem;
+    border-radius: 50%;
+    filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.4));
+    transition: transform var(--dur-slow) var(--ease-out-quint);
+  }
+  .situacao-card:hover .medallion { transform: scale(1.04) rotate(1.5deg); }
 
   /* ---------- linha do tempo (abordagem) ---------- */
   .timeline-rail {
@@ -219,7 +326,7 @@ body {
     bottom: 1.5rem;
     width: 2px;
     border-radius: 2px;
-    background: color-mix(in oklab, var(--bone) 14%, transparent);
+    background: var(--border-on-dark);
     overflow: hidden;
   }
   .timeline-rail-fill {
@@ -229,15 +336,64 @@ body {
     width: 100%;
     height: var(--rail, 0%);
     background: var(--ember);
-    transition: height 0.25s linear;
+    transition: height var(--dur-fast) linear;
   }
   .timeline-dot {
     position: absolute;
     width: 12px;
     height: 12px;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: var(--ember);
     box-shadow: 0 0 0 5px color-mix(in oklab, var(--ember) 18%, transparent);
+  }
+
+  /* ---------- manifesto (frase em destaque) ---------- */
+  #manifesto ul li {
+    transition: transform 0.6s var(--ease-out-quint);
+  }
+  #manifesto ul li > div {
+    background: color-mix(in oklab, var(--ink) 4%, var(--bone));
+    border: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
+    transition: background 0.6s ease, border-color 0.6s ease;
+  }
+  #manifesto ul li > div span[aria-hidden] {
+    background: transparent;
+    transition: background 0.6s ease;
+  }
+  #manifesto ul li > div p {
+    color: color-mix(in oklab, var(--ink) 65%, transparent);
+    transition: color 0.6s ease, font-weight 0.3s ease;
+  }
+  #manifesto ul li.is-active { transform: translateX(6px); }
+  #manifesto ul li.is-active > div {
+    background: color-mix(in oklab, var(--ember) 14%, var(--bone));
+    border-color: color-mix(in oklab, var(--ember-deep) 35%, transparent);
+  }
+  #manifesto ul li.is-active > div span[aria-hidden] { background: var(--ember-deep); }
+  #manifesto ul li.is-active > div p {
+    color: var(--ink-deep);
+    font-weight: 500;
+  }
+
+  /* ---------- FAQ (transições via aria-expanded) ---------- */
+  #duvidas div.grid {
+    transition: grid-template-rows 0.5s var(--ease-out-quint);
+  }
+  #duvidas div.grid p {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.35s ease, transform 0.45s var(--ease-out-quint);
+  }
+  #duvidas button[aria-expanded="true"] + div.grid p {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0.12s;
+  }
+  #duvidas button span.shrink-0 svg {
+    transition: transform 0.45s var(--ease-spring);
+  }
+  #duvidas button[aria-expanded="true"] span.shrink-0 svg {
+    transform: rotate(45deg); /* o "+" vira "×" */
   }
 
   /* ---------- detalhes ---------- */
@@ -256,18 +412,41 @@ body {
   /* ---------- animações de entrada ---------- */
   .reveal {
     opacity: 0;
-    animation: fade-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation: fade-up var(--dur-reveal) var(--ease-soft) forwards;
   }
   .reveal-delay-1 { animation-delay: 0.15s; }
   .reveal-delay-2 { animation-delay: 0.3s; }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { animation: none; opacity: 1; }
+
+  /* hero: cada linha do h1 sobe de dentro da própria máscara.
+     Só as linhas (netas) animam — os wrappers de variante mobile/desktop não. */
+  h1.reveal { animation: none; opacity: 1; }
+  h1.reveal .block .block {
+    clip-path: inset(0 0 110% 0);
+    transform: translateY(0.55em);
+    filter: blur(6px);
+    animation: hero-line 0.9s var(--ease-out-quint) forwards;
+  }
+  h1.reveal .block .block:nth-child(1) { animation-delay: 0.08s; }
+  h1.reveal .block .block:nth-child(2) { animation-delay: 0.2s; }
+  h1.reveal .block .block:nth-child(3) { animation-delay: 0.32s; }
+  /* rede de segurança: o JS marca .hero-settled após o load — o título
+     nunca pode ficar preso num estado intermediário */
+  h1.reveal.hero-settled .block .block {
+    animation: none;
+    clip-path: none;
+    transform: none;
+    filter: none;
   }
 }
 
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-line {
+  60%  { filter: blur(0); }
+  100% { clip-path: inset(0 0 -12% 0); transform: translateY(0); filter: blur(0); }
 }
 
 @keyframes marquee {
@@ -279,7 +458,42 @@ body {
   50% { opacity: 0.35; }
 }
 
+/* ---------- reveals guiados pelo scroll (progressive enhancement) ----------
+   Em navegadores com scroll-driven animations o JS troca os inline styles
+   de reveal por esta classe; o IntersectionObserver fica como fallback. */
+@supports (animation-timeline: view()) {
+  .sda-reveal {
+    animation: sda-up linear both;
+    animation-timeline: view();
+    animation-range: entry 10% entry 45%;
+  }
+}
+@keyframes sda-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* cursor custom só em ponteiros precisos */
 @media (hover: none), (pointer: coarse) {
   .cursor-dot { display: none !important; }
+}
+
+/* ---------- kill-switch de movimento reduzido ----------
+   cobre inclusive as transições inline herdadas do DOM original */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal, h1.reveal .block .block {
+    animation: none;
+    opacity: 1;
+    clip-path: none;
+    transform: none;
+    filter: none;
+  }
+  .cursor-dot { display: none !important; }
+  #manifesto ul li.is-active { transform: none; }
 }
