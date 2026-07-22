@@ -506,3 +506,67 @@ body {
   .cursor-dot { display: none !important; }
   #manifesto ul li.is-active { transform: none; }
 }
+
+/* ============================================================
+   Seção "Você já se viu..." — BUQUÊ DE CORES nos cards
+   Cada card recebe uma cor distinta da paleta. Regras fora de
+   @layer para vencer as utilities (text-bone, bg-moss-light) que
+   os cards herdam do markup original.
+   ============================================================ */
+#o-que-escuto h2 em,
+#o-que-escuto .pull-quote span { color: var(--ember); }
+
+/* acabamento comum das placas (borda + sombra de contato) */
+#o-que-escuto .situacao-card {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.4), 0 16px 26px -14px rgba(0, 0, 0, 0.5);
+}
+
+/* --- MUSGO --- */
+.sit-moss { background: var(--moss); }
+.sit-moss .card-title { color: var(--bone); }
+.sit-moss p.font-sans { color: color-mix(in oklab, var(--bone) 90%, transparent); }
+.sit-moss > span[aria-hidden] { background: color-mix(in oklab, var(--moss-light) 70%, transparent); }
+.sit-moss .medallion { box-shadow: 0 0 0 3px var(--bone-warm), 0 0 0 4px color-mix(in oklab, var(--ember-deep) 55%, transparent), 0 2px 1px rgba(0,0,0,.4), 0 16px 26px -14px rgba(0,0,0,.5); }
+
+/* --- CREME --- */
+.sit-creme { background: var(--bone); }
+.sit-creme .card-title { color: var(--ink); }
+.sit-creme p.font-sans { color: var(--ink-soft); }
+.sit-creme > span[aria-hidden] { background: color-mix(in oklab, var(--ember-deep) 50%, transparent); }
+.sit-creme .medallion { box-shadow: 0 0 0 3px var(--ink-deep), 0 0 0 4px color-mix(in oklab, var(--ember-deep) 60%, transparent), 0 2px 1px rgba(0,0,0,.35), 0 16px 26px -14px rgba(0,0,0,.45); }
+
+/* --- TERRACOTA --- */
+.sit-terra { background: var(--ember); }
+.sit-terra .card-title { color: var(--ink-deep); }
+.sit-terra p.font-sans { color: color-mix(in oklab, var(--ink-deep) 82%, transparent); }
+.sit-terra > span[aria-hidden] { background: color-mix(in oklab, var(--ink-deep) 35%, transparent); }
+.sit-terra .medallion { box-shadow: 0 0 0 3px var(--bone), 0 0 0 4px color-mix(in oklab, var(--ink-deep) 45%, transparent), 0 2px 1px rgba(0,0,0,.35), 0 16px 26px -14px rgba(0,0,0,.45); }
+
+/* --- VERDE ESCURO --- */
+.sit-verde { background: var(--ink-deep); }
+.sit-verde .card-title { color: var(--bone); }
+.sit-verde p.font-sans { color: color-mix(in oklab, var(--bone) 82%, transparent); }
+.sit-verde > span[aria-hidden] { background: color-mix(in oklab, var(--ember) 70%, transparent); }
+.sit-verde .medallion { box-shadow: 0 0 0 3px var(--bone-warm), 0 0 0 4px color-mix(in oklab, var(--ember-deep) 55%, transparent), 0 2px 1px rgba(0,0,0,.4), 0 16px 26px -14px rgba(0,0,0,.5); }
+
+/* --- VERDE-CLARO (sálvia) --- */
+.sit-mosscl { background: var(--moss-light); }
+.sit-mosscl .card-title { color: var(--ink); }
+.sit-mosscl p.font-sans { color: color-mix(in oklab, var(--ink) 78%, transparent); }
+.sit-mosscl > span[aria-hidden] { background: color-mix(in oklab, var(--ember-deep) 50%, transparent); }
+.sit-mosscl .medallion { box-shadow: 0 0 0 3px var(--ink-deep), 0 0 0 4px color-mix(in oklab, var(--ember-deep) 60%, transparent), 0 2px 1px rgba(0,0,0,.35), 0 16px 26px -14px rgba(0,0,0,.45); }
+
+/* --- VINHO --- */
+.sit-vinho { background: var(--wine); }
+.sit-vinho .card-title { color: var(--bone); }
+.sit-vinho p.font-sans { color: color-mix(in oklab, var(--bone) 85%, transparent); }
+.sit-vinho > span[aria-hidden] { background: color-mix(in oklab, var(--ember) 70%, transparent); }
+.sit-vinho .medallion { box-shadow: 0 0 0 3px var(--bone-warm), 0 0 0 4px color-mix(in oklab, var(--ember) 60%, transparent), 0 2px 1px rgba(0,0,0,.4), 0 16px 26px -14px rgba(0,0,0,.5); }
+
+/* --- TERRACOTA ESCURO --- */
+.sit-terradk { background: var(--ember-deep); }
+.sit-terradk .card-title { color: var(--bone); }
+.sit-terradk p.font-sans { color: color-mix(in oklab, var(--bone) 88%, transparent); }
+.sit-terradk > span[aria-hidden] { background: color-mix(in oklab, var(--moss-light) 70%, transparent); }
+.sit-terradk .medallion { box-shadow: 0 0 0 3px var(--bone-warm), 0 0 0 4px color-mix(in oklab, var(--ink-deep) 40%, transparent), 0 2px 1px rgba(0,0,0,.4), 0 16px 26px -14px rgba(0,0,0,.5); }
