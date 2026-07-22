@@ -16,7 +16,7 @@ module.exports = {
         border: "var(--border)",
       },
       fontFamily: {
-        display: ["Fraunces", "Georgia", "serif"],
+        display: ["'Playfair Display'", "Georgia", "serif"],
         sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
         mono: ["'IBM Plex Mono'", "ui-monospace", "monospace"],
       },
