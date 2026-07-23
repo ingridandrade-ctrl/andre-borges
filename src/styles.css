@@ -590,3 +590,23 @@ body {
   background: var(--moss-light);
   box-shadow: 0 0 0 5px color-mix(in oklab, var(--moss-light) 20%, transparent);
 }
+
+/* ---------- linha do tempo: alinhamento + bolinhas que acendem ---------- */
+.timeline-dot {
+  left: -2.2rem;                       /* alinha com o trilho (mobile) */
+  transition: transform 0.45s var(--ease-spring), box-shadow 0.45s ease, background 0.35s ease;
+}
+@media (min-width: 768px) {
+  .timeline-dot { left: -3.2rem; }     /* trilho fica mais à esquerda no desktop */
+}
+#abordagem .timeline-dot.is-active {
+  transform: scale(1.5);
+  background: var(--ember);
+  box-shadow:
+    0 0 0 6px color-mix(in oklab, var(--ember) 20%, transparent),
+    0 0 18px 3px color-mix(in oklab, var(--ember) 55%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .timeline-dot { transition: none; }
+  #abordagem .timeline-dot.is-active { transform: none; }
+}

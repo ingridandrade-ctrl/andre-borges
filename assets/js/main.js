@@ -214,6 +214,35 @@
     onScroll();
   }
 
+  /* ---------- 5b. Linha do tempo: bolinhas que acendem ---------- */
+  var tl = document.getElementById("abordagem");
+  if (tl) {
+    var tlCards = Array.prototype.slice.call(tl.querySelectorAll(".editorial-card"));
+    var tlDots = tlCards.map(function (c) { return c.querySelector(".timeline-dot"); });
+    var activate = function (idx) {
+      tlDots.forEach(function (d, i) { if (d) d.classList.toggle("is-active", i === idx); });
+    };
+    // ao rolar: acende a bolinha do card mais próximo da "linha de leitura"
+    var onTl = function () {
+      var line = window.innerHeight * 0.45;
+      var best = -1, bestDist = Infinity;
+      tlCards.forEach(function (c, i) {
+        var r = c.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        var d = Math.abs(r.top + r.height / 2 - line);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      if (best >= 0) activate(best);
+    };
+    window.addEventListener("scroll", onTl, { passive: true });
+    onTl();
+    // ao passar o dedo/mouse: acende a bolinha do card tocado
+    tlCards.forEach(function (c, i) {
+      c.addEventListener("mouseenter", function () { activate(i); });
+      c.addEventListener("touchstart", function () { activate(i); }, { passive: true });
+    });
+  }
+
   /* ---------- 6. Cursor custom + CTAs magnéticos ---------- */
   var dot = document.querySelector("div.pointer-events-none.fixed.z-\\[100\\]");
   if (dot) {
