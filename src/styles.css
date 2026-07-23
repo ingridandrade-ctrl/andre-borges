@@ -478,8 +478,22 @@ body {
   }
 }
 @keyframes sda-up {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: none; }
+  from { opacity: 0; transform: translateY(30px) scale(0.985); filter: blur(7px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+/* variantes direcionais do reveal (aplicadas pelo JS por seção/tipo) */
+@supports (animation-timeline: view()) {
+  .sda-reveal--left { animation-name: sda-left; }
+  .sda-reveal--pop  { animation-name: sda-pop; }
+}
+@keyframes sda-left {
+  from { opacity: 0; transform: translateX(-42px); filter: blur(7px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes sda-pop {
+  from { opacity: 0; transform: translateY(30px) scale(0.93); filter: blur(6px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
 }
 
 /* cursor custom só em ponteiros precisos */
@@ -609,4 +623,69 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .timeline-dot { transition: none; }
   #abordagem .timeline-dot.is-active { transform: none; }
+}
+
+/* ============================================================
+   CAMADA DE MOVIMENTO (v2) — enriquecimentos coesos
+   Só transform / opacity / filter. rAF + IntersectionObserver.
+   Kill-switch de prefers-reduced-motion ao final.
+   ============================================================ */
+
+/* ---------- barra de progresso de leitura ---------- */
+.reading-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg,
+    color-mix(in oklab, var(--ember) 85%, var(--moss-light)),
+    var(--ember), var(--ember-deep));
+  z-index: 150;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ---------- parallax interno de imagens de fundo ---------- */
+.parallax-media { will-change: transform; }
+
+/* ---------- tilt 3D + spotlight nos cards ---------- */
+.tilt-target { transform-origin: center; }
+.tilt-target.is-tilting { transform-style: preserve-3d; }
+
+.tilt-spot { position: relative; isolation: isolate; }
+.tilt-spot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;                 /* atrás do conteúdo, à frente do fundo */
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--sp, 0);
+  background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklab, var(--ember) 42%, transparent) 0%, transparent 62%);
+  mix-blend-mode: soft-light;
+  transition: opacity 0.4s ease;
+}
+
+/* medalhão ganha profundidade quando o card inclina (desktop) */
+.situacao-card.is-tilting .medallion {
+  transform: scale(1.05) translateZ(26px);
+}
+/* pop no toque (mobile) */
+.situacao-card.is-tapped .medallion { transform: scale(1.07); }
+.situacao-card.is-tapped::before { opacity: 0.7; }
+
+/* medalhão desenha uma sombra de contato mais viva ao acender */
+.situacao-card.is-tapped .medallion,
+.situacao-card.is-tilting .medallion { transition: transform var(--dur-slow) var(--ease-spring); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-progress { display: none; }
+  .parallax-media { transform: none !important; }
+  .tilt-target { transform: none !important; }
+  .tilt-target.is-tilting { transform-style: flat; }
+  .tilt-spot::before { display: none; }
+  .situacao-card.is-tapped .medallion,
+  .situacao-card.is-tilting .medallion { transform: none; }
 }

@@ -38,6 +38,12 @@
       el.style.removeProperty("transition");
       el.style.removeProperty("will-change");
       el.classList.add("sda-reveal");
+      // variedade direcional por seção/tipo
+      if (el.classList.contains("editorial-card") && el.closest("#abordagem")) {
+        el.classList.add("sda-reveal--left");   // cards da timeline entram pela esquerda
+      } else if (el.classList.contains("situacao-card")) {
+        el.classList.add("sda-reveal--pop");     // placas do buquê "estouram" de baixo
+      }
     });
   } else if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(
@@ -175,26 +181,100 @@
     });
   }
 
-  /* ---------- 4. Spotlight que segue o mouse (cards com overlay) ---------- */
-  if (finePointer && !reduced) {
-    Array.prototype.forEach.call(
-      document.querySelectorAll("article.group"),
-      function (card) {
-        var overlay = card.querySelector('div[aria-hidden="true"][style*="radial-gradient"]');
-        if (!overlay) return;
+  /* ---------- 4. Tilt 3D + Spotlight unificados nos cards ----------
+     Combina inclinação sutil seguindo o cursor com um brilho radial.
+     Alvos: buquê de situações, bento de benefícios, cards de atendimento
+     e cards da timeline. Benefícios usam o overlay div já existente;
+     os demais usam o ::before controlado por --mx/--my/--sp. */
+  function setupTiltCards(cards, opts) {
+    opts = opts || {};
+    var maxDeg = opts.maxDeg || 5;
+    var lift = opts.lift != null ? opts.lift : 6;
+    Array.prototype.forEach.call(cards, function (card) {
+      card.classList.add("tilt-target");
+      // spotlight: usa overlay pré-existente (benefícios) ou o ::before (tilt-spot)
+      var overlay = card.querySelector('div[aria-hidden="true"][style*="radial-gradient"]');
+      if (overlay) {
         overlay.style.background =
           "radial-gradient(360px circle at var(--mx,80%) var(--my,0%), " +
           "color-mix(in oklab, var(--ember) 30%, transparent) 0%, transparent 65%)";
         overlay.style.transition = "opacity 0.45s ease";
-        card.addEventListener("mousemove", function (e) {
-          var r = card.getBoundingClientRect();
-          overlay.style.setProperty("--mx", (e.clientX - r.left) + "px");
-          overlay.style.setProperty("--my", (e.clientY - r.top) + "px");
-          overlay.style.opacity = "1";
-        });
-        card.addEventListener("mouseleave", function () {
-          overlay.style.opacity = "0";
-        });
+      } else {
+        card.classList.add("tilt-spot");
+      }
+
+      var raf = 0, mx = 0, my = 0, tx = 0, ty = 0, leaving = false;
+      function render() {
+        raf = 0;
+        card.style.transform =
+          "perspective(950px) rotateX(" + tx.toFixed(2) + "deg) rotateY(" +
+          ty.toFixed(2) + "deg) translateY(-" + lift + "px)";
+        if (overlay) {
+          overlay.style.setProperty("--mx", mx + "px");
+          overlay.style.setProperty("--my", my + "px");
+        } else {
+          card.style.setProperty("--mx", mx + "px");
+          card.style.setProperty("--my", my + "px");
+        }
+      }
+      card.addEventListener("mouseenter", function () {
+        leaving = false;
+        card.classList.add("is-tilting");
+        card.style.willChange = "transform";
+        if (overlay) overlay.style.opacity = "1";
+        else card.style.setProperty("--sp", "1");
+      });
+      card.addEventListener("mousemove", function (e) {
+        var r = card.getBoundingClientRect();
+        mx = e.clientX - r.left;
+        my = e.clientY - r.top;
+        var px = mx / r.width - 0.5;   // -0.5 .. 0.5
+        var py = my / r.height - 0.5;
+        ty = px * maxDeg * 2;          // rotação Y segue o X do cursor
+        tx = -py * maxDeg * 2;         // rotação X segue o Y do cursor
+        if (!raf) raf = requestAnimationFrame(render);
+      });
+      card.addEventListener("mouseleave", function () {
+        leaving = true;
+        card.classList.remove("is-tilting");
+        // retorno com mola
+        card.style.transition = "transform 0.6s var(--ease-out-quint)";
+        card.style.transform = "";
+        if (overlay) overlay.style.opacity = "0";
+        else card.style.setProperty("--sp", "0");
+        setTimeout(function () {
+          if (leaving) {
+            card.style.transition = "";
+            card.style.removeProperty("will-change");
+          }
+        }, 620);
+      });
+    });
+  }
+
+  if (finePointer && !reduced) {
+    setupTiltCards(document.querySelectorAll("#o-que-escuto .situacao-card"), { maxDeg: 4.5, lift: 6 });
+    setupTiltCards(document.querySelectorAll("#beneficios article.group"), { maxDeg: 4, lift: 5 });
+    setupTiltCards(document.querySelectorAll("#atendimento article.editorial-card"), { maxDeg: 3.5, lift: 5 });
+    setupTiltCards(document.querySelectorAll("#abordagem article.editorial-card"), { maxDeg: 3.5, lift: 4 });
+  }
+
+  /* ---------- 4b. Toque: pop + spotlight nas placas de situação ---------- */
+  if (!finePointer && !reduced) {
+    Array.prototype.forEach.call(
+      document.querySelectorAll("#o-que-escuto .situacao-card"),
+      function (card) {
+        card.classList.add("tilt-spot");
+        card.addEventListener("touchstart", function (e) {
+          var t = e.touches && e.touches[0];
+          if (t) {
+            var r = card.getBoundingClientRect();
+            card.style.setProperty("--mx", (t.clientX - r.left) + "px");
+            card.style.setProperty("--my", (t.clientY - r.top) + "px");
+          }
+          card.classList.add("is-tapped");
+          setTimeout(function () { card.classList.remove("is-tapped"); }, 650);
+        }, { passive: true });
       }
     );
   }
@@ -282,29 +362,74 @@
     );
   }
 
-  /* ---------- 7. Parallax leve (elementos com data-parallax) ---------- */
-  if (finePointer && !reduced) {
-    var pEls = document.querySelectorAll("[data-parallax]");
-    if (pEls.length) {
-      var pItems = Array.prototype.map.call(pEls, function (el) {
-        el.style.willChange = "transform";
-        return { el: el, speed: parseFloat(el.getAttribute("data-parallax")) || 0.1 };
-      });
+  /* ---------- 7. Parallax de scroll (molduras + imagens de fundo) ----------
+     Ligado ao scroll (não ao ponteiro) — funciona também no mobile.
+     'frame' = elemento flutuante ([data-parallax], ex.: retrato).
+     'media' = imagem de fundo dentro de container recortado: recebe um
+     leve zoom (scale) para que o deslocamento nunca revele bordas. */
+  if (!reduced) {
+    var pItems = [];
+    Array.prototype.forEach.call(document.querySelectorAll("[data-parallax]"), function (el) {
+      el.style.willChange = "transform";
+      pItems.push({ el: el, box: el, type: "frame", speed: parseFloat(el.getAttribute("data-parallax")) || 0.1 });
+    });
+    var mediaSel = [
+      "hero-desktop", "hero-mobile", "manifesto-leighton",
+      "secaofinal-desktop", "closing-mobile", "diptych-couple", "diptych-desktop"
+    ];
+    mediaSel.forEach(function (key) {
+      var img = document.querySelector('img[src*="' + key + '"]');
+      if (!img || !img.parentElement) return;
+      img.classList.add("parallax-media");
+      pItems.push({ el: img, box: img.parentElement, type: "media", speed: 0.05 });
+    });
+
+    if (pItems.length) {
       var ticking = false;
       var update = function () {
         ticking = false;
         var vh = window.innerHeight;
         pItems.forEach(function (it) {
-          var r = it.el.getBoundingClientRect();
-          if (r.bottom < -80 || r.top > vh + 80) return;
+          var r = it.box.getBoundingClientRect();
+          if (!r.height || r.bottom < -120 || r.top > vh + 120) return;
           var y = (r.top + r.height / 2 - vh / 2) * -it.speed;
-          it.el.style.transform = "translate3d(0," + y.toFixed(1) + "px,0)";
+          if (it.type === "media") {
+            if (y > 26) y = 26; else if (y < -26) y = -26;
+            it.el.style.transform = "translate3d(0," + y.toFixed(1) + "px,0) scale(1.12)";
+          } else {
+            it.el.style.transform = "translate3d(0," + y.toFixed(1) + "px,0)";
+          }
         });
       };
       window.addEventListener("scroll", function () {
         if (!ticking) { ticking = true; requestAnimationFrame(update); }
       }, { passive: true });
+      window.addEventListener("resize", function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
       update();
     }
+  }
+
+  /* ---------- 8. Barra de progresso de leitura ---------- */
+  if (!reduced) {
+    var bar = document.createElement("div");
+    bar.className = "reading-progress";
+    bar.setAttribute("aria-hidden", "true");
+    document.body.appendChild(bar);
+    var barTick = false;
+    var updateBar = function () {
+      barTick = false;
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - doc.clientHeight;
+      var p = max > 0 ? doc.scrollTop / max : 0;
+      if (p < 0) p = 0; else if (p > 1) p = 1;
+      bar.style.transform = "scaleX(" + p.toFixed(4) + ")";
+    };
+    window.addEventListener("scroll", function () {
+      if (!barTick) { barTick = true; requestAnimationFrame(updateBar); }
+    }, { passive: true });
+    window.addEventListener("resize", updateBar, { passive: true });
+    updateBar();
   }
 })();
