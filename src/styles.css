@@ -570,3 +570,23 @@ body {
 .sit-terradk p.font-sans { color: color-mix(in oklab, var(--bone) 88%, transparent); }
 .sit-terradk > span[aria-hidden] { background: color-mix(in oklab, var(--moss-light) 70%, transparent); }
 .sit-terradk .medallion { box-shadow: 0 0 0 3px var(--bone-warm), 0 0 0 4px color-mix(in oklab, var(--ink-deep) 40%, transparent), 0 2px 1px rgba(0,0,0,.4), 0 16px 26px -14px rgba(0,0,0,.5); }
+
+/* ============================================================
+   Seção #abordagem — capítulo bordô com cards CLAROS
+   (fundo bordô vem inline nas seções; aqui vão os cards e a
+   linha do tempo, escopados por #abordagem)
+   ============================================================ */
+#abordagem .editorial-card {
+  background: var(--bone);
+  border: 1px solid color-mix(in oklab, var(--ink-deep) 12%, transparent);
+  box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.55);
+  backdrop-filter: none;
+}
+#abordagem .timeline-rail {
+  background: color-mix(in oklab, var(--bone) 22%, transparent);
+}
+#abordagem .timeline-rail-fill { background: var(--moss-light); }
+#abordagem .timeline-dot {
+  background: var(--moss-light);
+  box-shadow: 0 0 0 5px color-mix(in oklab, var(--moss-light) 20%, transparent);
+}
