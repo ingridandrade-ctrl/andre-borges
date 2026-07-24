@@ -253,7 +253,10 @@ body {
     padding: 0.85rem 1.45rem;
     border-radius: var(--radius-pill);
     border: 1px solid color-mix(in oklab, var(--ink-deep) 18%, transparent);
-    box-shadow: 0 14px 30px -14px color-mix(in oklab, var(--ember-deep) 70%, black);
+    /* glow terracota próprio (aparece igual em fundo claro ou escuro) + sombra de apoio */
+    box-shadow:
+      0 0 22px -2px color-mix(in oklab, var(--ember) 42%, transparent),
+      0 14px 30px -14px color-mix(in oklab, var(--ember-deep) 70%, black);
     transition: transform 0.28s var(--ease-out-quint), background 0.22s ease, box-shadow 0.28s ease;
   }
   .btn-ink > * { position: relative; z-index: 1; }
@@ -282,7 +285,9 @@ body {
   .btn-ink:hover {
     transform: translateY(-2px);
     background: color-mix(in oklab, var(--ember-deep) 82%, var(--ember));
-    box-shadow: 0 22px 40px -14px color-mix(in oklab, var(--ember-deep) 75%, black);
+    box-shadow:
+      0 0 30px 0px color-mix(in oklab, var(--ember) 55%, transparent),
+      0 22px 40px -14px color-mix(in oklab, var(--ember-deep) 75%, black);
   }
   .btn-ink:active {
     transform: translateY(0) scale(0.97);
