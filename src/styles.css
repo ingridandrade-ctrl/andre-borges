@@ -212,7 +212,7 @@ body {
 
   /* ---------- marquee ---------- */
   .marquee {
-    --marquee-duration: 38s;
+    --marquee-duration: 70s;
     display: flex;
     overflow: hidden;
     user-select: none;
@@ -230,7 +230,7 @@ body {
   }
   .marquee:hover .marquee-track { animation-play-state: paused; }
   @media (max-width: 640px) {
-    .marquee { --marquee-duration: 26s; }
+    .marquee { --marquee-duration: 48s; }
   }
   @media (prefers-reduced-motion: reduce) {
     .marquee-track { animation: none; }
