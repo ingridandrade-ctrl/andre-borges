@@ -432,4 +432,35 @@
     window.addEventListener("resize", updateBar, { passive: true });
     updateBar();
   }
+
+  /* ---------- #beneficios: hover editorial quente (lavagem + numeral + seta) ---------- */
+  var bene = document.getElementById("beneficios");
+  if (bene) {
+    Array.prototype.forEach.call(bene.querySelectorAll("article.group"), function (card) {
+      // lavagem quente ao fundo
+      var wash = document.createElement("div");
+      wash.className = "bene-wash";
+      wash.setAttribute("aria-hidden", "true");
+      card.insertBefore(wash, card.firstChild);
+      // numeral gigante fantasma (extrai do kicker "01 · ...")
+      var kicker = card.querySelector("span.font-mono");
+      var num = kicker ? ((kicker.textContent.trim().match(/^\d+/) || [""])[0]) : "";
+      if (num) {
+        var ghost = document.createElement("span");
+        ghost.className = "bene-ghost";
+        ghost.setAttribute("aria-hidden", "true");
+        ghost.textContent = num;
+        card.appendChild(ghost);
+      }
+      // botão circular com seta no topo direito
+      var topRow = card.querySelector(".flex.items-start.justify-between");
+      if (topRow) {
+        var arrow = document.createElement("span");
+        arrow.className = "bene-arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>';
+        topRow.appendChild(arrow);
+      }
+    });
+  }
 })();

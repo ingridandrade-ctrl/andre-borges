@@ -711,3 +711,80 @@ body {
   .situacao-card.is-tapped .medallion,
   .situacao-card.is-tilting .medallion { transform: none; }
 }
+
+/* ============================================================
+   #beneficios — hover "editorial quente" (referência do cliente)
+   Elementos .bene-* são injetados pelo JS em cada card.
+   ============================================================ */
+#beneficios article.group { isolation: isolate; }
+#beneficios article.group > .relative { z-index: 2; }
+
+/* lavagem quente que cobre o card no hover */
+#beneficios .bene-wash {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(125deg,
+    color-mix(in oklab, var(--ember) 8%, var(--bone)) 0%,
+    color-mix(in oklab, var(--ember) 26%, var(--bone)) 55%,
+    color-mix(in oklab, var(--ember) 52%, var(--bone)) 100%);
+  transition: opacity 0.55s var(--ease-out-quint);
+}
+#beneficios article.group:hover .bene-wash { opacity: 1; }
+
+/* numeral gigante fantasma no canto inferior direito */
+#beneficios .bene-ghost {
+  position: absolute;
+  right: 0.25rem;
+  bottom: -2.4rem;
+  z-index: 1;
+  font-family: theme('fontFamily.display');
+  font-style: italic;
+  font-size: 9rem;
+  line-height: 1;
+  color: color-mix(in oklab, var(--bone) 55%, transparent);
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.6s var(--ease-out-quint);
+}
+#beneficios article.group:hover .bene-ghost { opacity: 1; transform: none; }
+
+/* botão circular com seta no topo direito */
+#beneficios .bene-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: var(--ember-deep);
+  color: var(--bone);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.4s ease, transform 0.45s var(--ease-spring);
+}
+#beneficios article.group:hover .bene-arrow { opacity: 1; transform: none; }
+
+/* barra lateral acende por inteiro */
+#beneficios article.group:hover > div[class*="w-[3px]"] {
+  height: 82% !important;
+  background: var(--ember-deep) !important;
+}
+/* linha de base completa em terracota */
+#beneficios article.group:hover div[class*="h-px"] {
+  width: 100% !important;
+  background: var(--ember-deep) !important;
+}
+/* kicker escurece sobre a lavagem */
+#beneficios article.group:hover span[class*="font-mono"] {
+  color: var(--ink-deep) !important;
+}
+/* o spotlight genérico sai de cena nesta seção (a lavagem assume) */
+#beneficios article.group div[aria-hidden][style*="radial-gradient"] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  #beneficios .bene-wash, #beneficios .bene-ghost, #beneficios .bene-arrow { transition: none; }
+}
