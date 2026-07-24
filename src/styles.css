@@ -239,20 +239,45 @@ body {
   /* ---------- botões ---------- */
   /* ---------- botão de ação (terracota escuro, comportamento estável) ---------- */
   .btn-ink {
+    position: relative;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.55rem;
     background: var(--ember-deep);
     color: var(--bone);
     font-family: theme('fontFamily.sans');
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 600;
     letter-spacing: 0.01em;
-    padding: 0.95rem 1.7rem;
+    padding: 0.85rem 1.45rem;
     border-radius: var(--radius-pill);
     border: 1px solid color-mix(in oklab, var(--ink-deep) 18%, transparent);
     box-shadow: 0 14px 30px -14px color-mix(in oklab, var(--ember-deep) 70%, black);
     transition: transform 0.28s var(--ease-out-quint), background 0.22s ease, box-shadow 0.28s ease;
+  }
+  .btn-ink > * { position: relative; z-index: 1; }
+  /* brilho fininho que passa de leve pelo botão */
+  .btn-ink::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 22%;
+    height: 100%;
+    background: linear-gradient(100deg,
+      transparent,
+      color-mix(in oklab, var(--bone) 38%, transparent),
+      transparent);
+    transform: translateX(-160%) skewX(-16deg);
+    animation: btn-sheen 5.5s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes btn-sheen {
+    0% { transform: translateX(-160%) skewX(-16deg); }
+    14% { transform: translateX(560%) skewX(-16deg); }
+    100% { transform: translateX(560%) skewX(-16deg); }
   }
   .btn-ink:hover {
     transform: translateY(-2px);
@@ -268,12 +293,13 @@ body {
   .btn-bone-text { color: var(--bone); }
   @media (max-width: 480px) {
     .btn-ink {
-      font-size: 0.9rem;
-      padding: 0.9rem 1.5rem;
+      font-size: 0.875rem;
+      padding: 0.8rem 1.3rem;
       white-space: nowrap;
     }
   }
   @media (prefers-reduced-motion: reduce) {
+    .btn-ink::after { animation: none; opacity: 0; }
     .btn-ink, .btn-ink svg { transition: none; }
     .btn-ink:hover { transform: none; }
   }
