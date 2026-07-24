@@ -237,55 +237,45 @@ body {
   }
 
   /* ---------- botões ---------- */
+  /* ---------- botão de ação (terracota escuro, comportamento estável) ---------- */
   .btn-ink {
     display: inline-flex;
     align-items: center;
-    gap: 0.65rem;
-    background: var(--ink-deep);
+    gap: 0.6rem;
+    background: var(--ember-deep);
     color: var(--bone);
     font-family: theme('fontFamily.sans');
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.01em;
     padding: 0.95rem 1.7rem;
     border-radius: var(--radius-pill);
-    border: 1px solid color-mix(in oklab, var(--bone) 12%, transparent);
-    box-shadow: var(--shadow-btn);
-    transition: transform 0.5s var(--ease-spring), background 0.3s, box-shadow 0.5s;
-    will-change: transform;
+    border: 1px solid color-mix(in oklab, var(--ink-deep) 18%, transparent);
+    box-shadow: 0 14px 30px -14px color-mix(in oklab, var(--ember-deep) 70%, black);
+    transition: transform 0.28s var(--ease-out-quint), background 0.22s ease, box-shadow 0.28s ease;
   }
   .btn-ink:hover {
     transform: translateY(-2px);
-    background: var(--ink);
-    box-shadow: var(--shadow-btn-hover);
+    background: color-mix(in oklab, var(--ember-deep) 82%, var(--ember));
+    box-shadow: 0 22px 40px -14px color-mix(in oklab, var(--ember-deep) 75%, black);
   }
   .btn-ink:active {
     transform: translateY(0) scale(0.97);
-    transition-duration: 0.15s;
+    transition-duration: 0.12s;
   }
-  .btn-ink svg { transition: transform var(--dur-base) var(--ease-spring); }
-  .btn-ink:hover svg { transform: translate(2px, -2px); }
+  .btn-ink svg { transition: transform var(--dur-base) var(--ease-out-quint); }
+  .btn-ink:hover svg { transform: translate(3px, -3px); }
   .btn-bone-text { color: var(--bone); }
   @media (max-width: 480px) {
     .btn-ink {
-      font-size: 0.875rem;
-      padding: 0.85rem 1.35rem;
+      font-size: 0.9rem;
+      padding: 0.9rem 1.5rem;
       white-space: nowrap;
     }
   }
-  /* nas seções escuras o botão vira ember para manter contraste */
-  .on-dark .btn-ink,
-  #o-que-escuto .btn-ink,
-  #agendar .btn-ink {
-    background: var(--ember);
-    color: var(--ink-deep);
-    border-color: color-mix(in oklab, var(--ink-deep) 15%, transparent);
-    box-shadow: 0 18px 36px -16px rgba(0, 0, 0, 0.5);
-  }
-  .on-dark .btn-ink:hover,
-  #o-que-escuto .btn-ink:hover,
-  #agendar .btn-ink:hover {
-    background: color-mix(in oklab, var(--ember) 88%, white);
+  @media (prefers-reduced-motion: reduce) {
+    .btn-ink, .btn-ink svg { transition: none; }
+    .btn-ink:hover { transform: none; }
   }
 
   /* ---------- cartões editoriais ---------- */
