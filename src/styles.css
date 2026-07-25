@@ -250,10 +250,10 @@ body {
     background: var(--ember-deep);
     color: var(--bone);
     font-family: theme('fontFamily.sans');
-    font-size: 0.92rem;
+    font-size: 1.02rem;
     font-weight: 600;
     letter-spacing: 0.01em;
-    padding: 0.85rem 1.45rem;
+    padding: 0.9rem 1.55rem;
     border-radius: var(--radius-pill);
     border: 1px solid color-mix(in oklab, var(--ink-deep) 18%, transparent);
     /* sombra neutra sutil (sem glow alaranjado) */
@@ -297,8 +297,8 @@ body {
   .btn-bone-text { color: var(--bone); }
   @media (max-width: 480px) {
     .btn-ink {
-      font-size: 0.875rem;
-      padding: 0.8rem 1.3rem;
+      font-size: 0.98rem;
+      padding: 0.85rem 1.4rem;
       white-space: nowrap;
     }
   }
