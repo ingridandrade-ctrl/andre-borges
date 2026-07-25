@@ -14,8 +14,8 @@
 
   /* ---------- 1. Reveal on scroll ----------
      Os elementos vêm do DOM original com opacity:0 + translateY(24px) inline.
-     Com suporte a scroll-driven animations, trocamos por CSS puro (.sda-reveal);
-     senão, IntersectionObserver revela uma vez. */
+     Um IntersectionObserver revela cada um ao entrar na tela (mobile e
+     desktop igual), usando a transição inline com delays escalonados. */
   var hidden = Array.prototype.filter.call(
     document.querySelectorAll("[style]"),
     function (el) {
@@ -24,26 +24,15 @@
     }
   );
 
-  var sda = window.CSS && CSS.supports && CSS.supports("animation-timeline: view()");
+  /* Reveal universal via IntersectionObserver — funciona igual no mobile e
+     no desktop (não depende de scroll-driven animations, que têm suporte
+     irregular em navegadores móveis). Cada elemento anima ao entrar na tela,
+     usando a transição inline (com os delays escalonados já embutidos). */
   if (reduced) {
     hidden.forEach(function (el) {
       el.style.opacity = "1";
       el.style.transform = "none";
       el.style.removeProperty("will-change");
-    });
-  } else if (sda) {
-    hidden.forEach(function (el) {
-      el.style.removeProperty("opacity");
-      el.style.removeProperty("transform");
-      el.style.removeProperty("transition");
-      el.style.removeProperty("will-change");
-      el.classList.add("sda-reveal");
-      // variedade direcional por seção/tipo
-      if (el.classList.contains("editorial-card") && el.closest("#abordagem")) {
-        el.classList.add("sda-reveal--left");   // cards da timeline entram pela esquerda
-      } else if (el.classList.contains("situacao-card")) {
-        el.classList.add("sda-reveal--pop");     // placas do buquê "estouram" de baixo
-      }
     });
   } else if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(
@@ -59,7 +48,7 @@
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -5% 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -8% 0px" }
     );
     hidden.forEach(function (el) { io.observe(el); });
   } else {
