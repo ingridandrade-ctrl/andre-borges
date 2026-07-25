@@ -388,7 +388,7 @@ body {
   }
   #manifesto ul li > div span[aria-hidden] {
     background: transparent;
-    transform: scaleY(0.35);
+    transform: translateY(-50%) scaleY(0.35);
     transform-origin: center;
     transition: background 0.3s var(--ease-out-quint), transform 0.32s var(--ease-out-quint);
   }
@@ -404,7 +404,7 @@ body {
   }
   #manifesto ul li.is-active > div span[aria-hidden] {
     background: var(--ember-deep);
-    transform: scaleY(1);
+    transform: translateY(-50%) scaleY(1);
   }
   #manifesto ul li.is-active > div p {
     color: var(--ink-deep);
