@@ -378,23 +378,23 @@ body {
 
   /* ---------- manifesto (frase em destaque) ---------- */
   #manifesto ul li {
-    transition: transform 0.55s var(--ease-out-quint);
+    transition: transform 0.32s var(--ease-out-quint);
   }
   #manifesto ul li > div {
     background: color-mix(in oklab, var(--ink) 4%, var(--bone));
     border: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
     box-shadow: 0 0 0 0 transparent;
-    transition: background 0.55s var(--ease-out-quint), border-color 0.55s var(--ease-out-quint), box-shadow 0.55s var(--ease-out-quint);
+    transition: background 0.32s var(--ease-out-quint), border-color 0.32s var(--ease-out-quint), box-shadow 0.32s var(--ease-out-quint);
   }
   #manifesto ul li > div span[aria-hidden] {
     background: transparent;
     transform: scaleY(0.35);
     transform-origin: center;
-    transition: background 0.5s var(--ease-out-quint), transform 0.5s var(--ease-spring);
+    transition: background 0.3s var(--ease-out-quint), transform 0.32s var(--ease-out-quint);
   }
   #manifesto ul li > div p {
     color: color-mix(in oklab, var(--ink) 65%, transparent);
-    transition: color 0.55s ease, font-weight 0.3s ease;
+    transition: color 0.32s ease, font-weight 0.3s ease;
   }
   #manifesto ul li.is-active { transform: translateX(8px); }
   #manifesto ul li.is-active > div {
