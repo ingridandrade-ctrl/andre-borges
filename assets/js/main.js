@@ -103,7 +103,7 @@
       w.classList.toggle("bg-ink", open);
       w.classList.toggle("text-bone", open);
       w.classList.toggle("border-ink", open);
-      w.classList.toggle("bg-bone-warm", !open);
+      w.classList.toggle("bg-moss-light", !open);
       w.classList.toggle("border-ink/10", !open);
       w.classList.toggle("hover:border-ink/30", !open);
       var circle = b.querySelector("span.shrink-0");

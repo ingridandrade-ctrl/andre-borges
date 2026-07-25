@@ -190,7 +190,8 @@ body {
 
   /* contraste: destaques ember sobre fundos claros usam o tom deep */
   .bg-bone .text-ember,
-  .bg-bone-warm .text-ember { color: var(--ember-deep); }
+  .bg-bone-warm .text-ember,
+  .bg-moss-light .text-ember { color: var(--ember-deep); }
 
   /* ---------- textura de grão ---------- */
   .grain::after {
