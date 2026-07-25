@@ -289,6 +289,32 @@ body {
     background: color-mix(in oklab, var(--ember-deep) 82%, var(--ember));
     box-shadow: 0 16px 30px -14px rgba(20, 32, 26, 0.45);
   }
+  /* painel de evidência (EFT) — feature editorial */
+  .eft-panel {
+    background: linear-gradient(180deg, var(--bone) 0%, color-mix(in oklab, var(--bone-warm) 60%, var(--bone)) 100%);
+    border: 1px solid color-mix(in oklab, var(--ink) 10%, transparent);
+    box-shadow: 0 30px 60px -34px rgba(20, 32, 26, 0.3);
+  }
+  .eft-panel::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      var(--ember-deep) 0%,
+      color-mix(in oklab, var(--ember-deep) 45%, transparent) 45%,
+      transparent 80%);
+  }
+  .eft-rule {
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 1s var(--ease-out-quint) 0.25s;
+  }
+  .eft-panel.is-shown .eft-rule { transform: scaleX(1); }
+  @media (prefers-reduced-motion: reduce) {
+    .eft-rule { transform: none; transition: none; }
+  }
+
   /* botão da hero num terracota mais vivo */
   .btn-hero { background: #d65e30; }
   .btn-hero:hover { background: #c9542a; }

@@ -58,6 +58,21 @@
     });
   }
 
+  /* ---------- 1c. Painel EFT: desenha as réguas ao entrar na tela ---------- */
+  var eftPanel = document.querySelector(".eft-panel");
+  if (eftPanel) {
+    if (reduced || !("IntersectionObserver" in window)) {
+      eftPanel.classList.add("is-shown");
+    } else {
+      var eftIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add("is-shown"); eftIO.unobserve(e.target); }
+        });
+      }, { threshold: 0.3 });
+      eftIO.observe(eftPanel);
+    }
+  }
+
   /* ---------- 2. FAQ (accordion acessível) ---------- */
   var faq = document.getElementById("duvidas");
   if (faq) {
