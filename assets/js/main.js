@@ -109,8 +109,8 @@
       var circle = b.querySelector("span.shrink-0");
       if (circle) {
         circle.className = open
-          ? "shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center transition bg-ember text-ink"
-          : "shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center transition border border-ink/20 text-ink";
+          ? "shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center transition bg-ember text-ink"
+          : "shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center transition border border-ink/20 text-ink";
       }
       var answer = p && p.querySelector("p");
       if (answer) {
