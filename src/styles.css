@@ -174,7 +174,7 @@ body {
     font-size: 3.1em;
     line-height: 0.82;
     padding-right: 0.14em;
-    color: var(--ember);
+    color: #d65e30; /* mesmo laranja do destaque do título */
   }
   /* em colunas estreitas o drop-cap fatia a palavra — só desktop */
   @media (max-width: 767px) {
@@ -293,17 +293,15 @@ body {
   .btn-hero { background: #d65e30; }
   .btn-hero:hover { background: #c9542a; }
 
-  /* botão sólido dos cards de atendimento (mesmo laranja da hero) */
+  /* botão discreto dos cards de atendimento (verde musgo) */
   .btn-card {
-    background: #d65e30;
+    background: var(--moss);
     color: var(--bone);
-    box-shadow: 0 12px 24px -14px rgba(20, 32, 26, 0.45);
-    transition: background 0.25s ease, transform 0.3s var(--ease-out-quint), box-shadow 0.3s ease;
+    transition: background 0.25s ease, transform 0.3s var(--ease-out-quint);
   }
   .btn-card:hover {
-    background: #c9542a;
+    background: color-mix(in oklab, var(--moss) 84%, var(--ink));
     transform: translateY(-1px);
-    box-shadow: 0 16px 28px -14px rgba(20, 32, 26, 0.5);
   }
   .btn-card svg { transition: transform var(--dur-base) var(--ease-out-quint); }
   .btn-card:hover svg { transform: translate(2px, -2px); }
