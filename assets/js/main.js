@@ -187,9 +187,8 @@
       var raf = 0, mx = 0, my = 0, tx = 0, ty = 0, leaving = false;
       function render() {
         raf = 0;
-        card.style.transform =
-          "perspective(950px) rotateX(" + tx.toFixed(2) + "deg) rotateY(" +
-          ty.toFixed(2) + "deg) translateY(-" + lift + "px)";
+        // sem mudança de ângulo: só a leve levantadinha + o brilho seguindo o cursor
+        card.style.transform = "translateY(-" + lift + "px)";
         if (overlay) {
           overlay.style.setProperty("--mx", mx + "px");
           overlay.style.setProperty("--my", my + "px");
@@ -294,6 +293,7 @@
     var tlCards = Array.prototype.slice.call(tl.querySelectorAll(".editorial-card"));
     var tlDots = tlCards.map(function (c) { return c.querySelector(".timeline-dot"); });
     var activate = function (idx) {
+      tlCards.forEach(function (c, i) { c.classList.toggle("is-active", i === idx); });
       tlDots.forEach(function (d, i) { if (d) d.classList.toggle("is-active", i === idx); });
     };
     // ao rolar: acende a bolinha do card mais próximo da "linha de leitura"

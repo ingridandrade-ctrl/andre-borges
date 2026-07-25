@@ -387,7 +387,7 @@ body {
     width: 100%;
     height: var(--rail, 0%);
     background: var(--ember);
-    transition: height var(--dur-fast) linear;
+    transition: height 0.5s var(--ease-out-quint);
   }
   .timeline-dot {
     position: absolute;
@@ -672,9 +672,16 @@ body {
   box-shadow: 0 42px 72px -34px rgba(0, 0, 0, 0.62);
   border-color: color-mix(in oklab, var(--ember-deep) 26%, transparent);
 }
+/* card atual (ao rolar): acende com borda lateral interna bordô à esquerda */
+#abordagem .editorial-card.is-active {
+  transform: translateY(-3px);
+  box-shadow: inset 4px 0 0 0 var(--wine), 0 42px 72px -34px rgba(0, 0, 0, 0.62);
+  border-color: color-mix(in oklab, var(--ember-deep) 22%, transparent);
+}
 @media (prefers-reduced-motion: reduce) {
   #abordagem .editorial-card { transition: none; }
-  #abordagem .editorial-card:hover { transform: none; }
+  #abordagem .editorial-card:hover,
+  #abordagem .editorial-card.is-active { transform: none; }
 }
 #abordagem .timeline-rail {
   background: color-mix(in oklab, var(--bone) 22%, transparent);
@@ -775,9 +782,11 @@ body {
   border-color: color-mix(in oklab, var(--bone) 25%, transparent);
   color: var(--bone);
 }
-/* beneficios — brilho quente do card */
+/* beneficios — brilho quente do card + leve levantadinha */
+#beneficios article.is-active { transform: translateY(-4px); }
 #beneficios article.is-active > .transition-opacity { opacity: 1 !important; }
-/* situações — spotlight aceso */
+/* situações — spotlight aceso + leve levantadinha */
+#o-que-escuto .situacao-card.is-active { transform: translateY(-4px); }
 #o-que-escuto .situacao-card.is-active::before { opacity: 0.5; }
 
 @media (prefers-reduced-motion: reduce) {
