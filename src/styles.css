@@ -683,13 +683,11 @@ body {
 #abordagem .editorial-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 42px 72px -34px rgba(0, 0, 0, 0.62);
-  border-color: color-mix(in oklab, var(--ember-deep) 26%, transparent);
 }
-/* card atual (ao rolar): acende com borda lateral interna bordô à esquerda */
+/* card atual (ao rolar): acende com borda lateral interna laranja clara */
 #abordagem .editorial-card.is-active {
   transform: translateY(-3px);
-  box-shadow: inset 4px 0 0 0 var(--wine), 0 42px 72px -34px rgba(0, 0, 0, 0.62);
-  border-color: color-mix(in oklab, var(--ember-deep) 22%, transparent);
+  box-shadow: inset 4px 0 0 0 var(--ember), 0 42px 72px -34px rgba(0, 0, 0, 0.62);
 }
 @media (prefers-reduced-motion: reduce) {
   #abordagem .editorial-card { transition: none; }
