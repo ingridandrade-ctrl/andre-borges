@@ -18,7 +18,7 @@
   --ink-darkest: #0a110d; --ink-darkest-rgb: 10 17 13;
   --ink-soft: #5a665e;    --ink-soft-rgb: 90 102 94;
   --ember: #e08b5e;       --ember-rgb: 224 139 94;
-  --ember-deep: #d65e30;  --ember-deep-rgb: 214 94 48;
+  --ember-deep: #b05430;  --ember-deep-rgb: 176 84 48;
   /* vinho da seção "situações" (referência visual do cliente) */
   --wine: #5d2130;        --wine-rgb: 93 33 48;
   --ember-dark: var(--wine); --ember-dark-rgb: 93 33 48;
@@ -597,7 +597,7 @@ body {
    os cards herdam do markup original.
    ============================================================ */
 #o-que-escuto h2 em,
-#o-que-escuto .pull-quote span { color: var(--ember-deep); }
+#o-que-escuto .pull-quote span { color: #d65e30; }
 
 /* acabamento comum das placas (borda + sombra de contato) */
 #o-que-escuto .situacao-card {
