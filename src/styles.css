@@ -760,6 +760,26 @@ body {
 .situacao-card.is-tapped .medallion,
 .situacao-card.is-tilting .medallion { transition: transform var(--dur-slow) var(--ease-spring); }
 
+/* ---------- mobile: acende o efeito ao centralizar o card (sem hover) ---------- */
+/* atendimento — card vira verde escuro, igual ao hover do desktop */
+#atendimento .editorial-card.is-active {
+  background: var(--ink);
+  color: var(--bone);
+  transform: translateY(-4px);
+}
+#atendimento .editorial-card.is-active .card-title { color: var(--bone); }
+#atendimento .editorial-card.is-active .card-body { color: color-mix(in oklab, var(--bone) 75%, transparent); }
+#atendimento .editorial-card.is-active .plate { color: color-mix(in oklab, var(--bone) 58%, transparent); }
+#atendimento .editorial-card.is-active .border-t { border-color: color-mix(in oklab, var(--bone) 15%, transparent); }
+#atendimento .editorial-card.is-active a[href*="wa.me"] {
+  border-color: color-mix(in oklab, var(--bone) 25%, transparent);
+  color: var(--bone);
+}
+/* beneficios — brilho quente do card */
+#beneficios article.is-active > .transition-opacity { opacity: 1 !important; }
+/* situações — spotlight aceso */
+#o-que-escuto .situacao-card.is-active::before { opacity: 0.5; }
+
 @media (prefers-reduced-motion: reduce) {
   .reading-progress { display: none; }
   .parallax-media { transform: none !important; }
@@ -768,6 +788,7 @@ body {
   .tilt-spot::before { display: none; }
   .situacao-card.is-tapped .medallion,
   .situacao-card.is-tilting .medallion { transform: none; }
+  #atendimento .editorial-card.is-active { transform: none; }
 }
 
 /* ============================================================

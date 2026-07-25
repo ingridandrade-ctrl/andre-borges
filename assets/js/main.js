@@ -269,6 +269,19 @@
         }, { passive: true });
       }
     );
+
+    /* acende o efeito de cada card ao passar pelo centro da tela */
+    var mobileFx = document.querySelectorAll(
+      "#atendimento article.editorial-card, #beneficios article.group, #o-que-escuto .situacao-card"
+    );
+    if ("IntersectionObserver" in window && mobileFx.length) {
+      var fxIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          en.target.classList.toggle("is-active", en.isIntersecting);
+        });
+      }, { rootMargin: "-42% 0px -42% 0px", threshold: 0 });
+      Array.prototype.forEach.call(mobileFx, function (c) { fxIO.observe(c); });
+    }
   }
 
   /* ---------- 5. Preenchimento da linha do tempo ---------- */
