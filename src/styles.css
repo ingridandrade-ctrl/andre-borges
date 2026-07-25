@@ -129,6 +129,7 @@ body {
     letter-spacing: 0.005em;
     color: var(--ink-soft);
     max-width: 46rem;
+    text-wrap: pretty;
   }
   .section-lede.on-dark,
   .on-dark .section-lede {
@@ -145,6 +146,7 @@ body {
     font-size: 15.5px;
     line-height: 1.65;
     color: var(--ink-soft);
+    text-wrap: pretty;
   }
   .plate {
     font-family: theme('fontFamily.mono');
@@ -253,10 +255,8 @@ body {
     padding: 0.85rem 1.45rem;
     border-radius: var(--radius-pill);
     border: 1px solid color-mix(in oklab, var(--ink-deep) 18%, transparent);
-    /* glow terracota próprio (aparece igual em fundo claro ou escuro) + sombra de apoio */
-    box-shadow:
-      0 0 22px -2px color-mix(in oklab, var(--ember) 42%, transparent),
-      0 14px 30px -14px color-mix(in oklab, var(--ember-deep) 70%, black);
+    /* sombra neutra sutil (sem glow alaranjado) */
+    box-shadow: 0 12px 26px -14px rgba(20, 32, 26, 0.4);
     transition: transform 0.28s var(--ease-out-quint), background 0.22s ease, box-shadow 0.28s ease;
   }
   .btn-ink > * { position: relative; z-index: 1; }
@@ -285,9 +285,7 @@ body {
   .btn-ink:hover {
     transform: translateY(-2px);
     background: color-mix(in oklab, var(--ember-deep) 82%, var(--ember));
-    box-shadow:
-      0 0 30px 0px color-mix(in oklab, var(--ember) 55%, transparent),
-      0 22px 40px -14px color-mix(in oklab, var(--ember-deep) 75%, black);
+    box-shadow: 0 16px 30px -14px rgba(20, 32, 26, 0.45);
   }
   .btn-ink:active {
     transform: translateY(0) scale(0.97);
@@ -380,30 +378,40 @@ body {
 
   /* ---------- manifesto (frase em destaque) ---------- */
   #manifesto ul li {
-    transition: transform 0.6s var(--ease-out-quint);
+    transition: transform 0.55s var(--ease-out-quint);
   }
   #manifesto ul li > div {
     background: color-mix(in oklab, var(--ink) 4%, var(--bone));
     border: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
-    transition: background 0.6s ease, border-color 0.6s ease;
+    box-shadow: 0 0 0 0 transparent;
+    transition: background 0.55s var(--ease-out-quint), border-color 0.55s var(--ease-out-quint), box-shadow 0.55s var(--ease-out-quint);
   }
   #manifesto ul li > div span[aria-hidden] {
     background: transparent;
-    transition: background 0.6s ease;
+    transform: scaleY(0.35);
+    transform-origin: center;
+    transition: background 0.5s var(--ease-out-quint), transform 0.5s var(--ease-spring);
   }
   #manifesto ul li > div p {
     color: color-mix(in oklab, var(--ink) 65%, transparent);
-    transition: color 0.6s ease, font-weight 0.3s ease;
+    transition: color 0.55s ease, font-weight 0.3s ease;
   }
-  #manifesto ul li.is-active { transform: translateX(6px); }
+  #manifesto ul li.is-active { transform: translateX(8px); }
   #manifesto ul li.is-active > div {
     background: color-mix(in oklab, var(--ember) 14%, var(--bone));
     border-color: color-mix(in oklab, var(--ember-deep) 35%, transparent);
+    box-shadow: 0 16px 30px -20px color-mix(in oklab, var(--ink-deep) 45%, transparent);
   }
-  #manifesto ul li.is-active > div span[aria-hidden] { background: var(--ember-deep); }
+  #manifesto ul li.is-active > div span[aria-hidden] {
+    background: var(--ember-deep);
+    transform: scaleY(1);
+  }
   #manifesto ul li.is-active > div p {
     color: var(--ink-deep);
     font-weight: 500;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #manifesto ul li > div span[aria-hidden] { transform: none; }
   }
 
   /* ---------- FAQ (transições via aria-expanded) ---------- */
@@ -496,11 +504,12 @@ body {
   .sda-reveal {
     animation: sda-up linear both;
     animation-timeline: view();
-    animation-range: entry 10% entry 45%;
+    /* range mais amplo: o movimento acompanha mais o scroll e fica perceptível */
+    animation-range: entry 4% entry 52%;
   }
 }
 @keyframes sda-up {
-  from { opacity: 0; transform: translateY(30px) scale(0.985); filter: blur(7px); }
+  from { opacity: 0; transform: translateY(46px) scale(0.975); filter: blur(8px); }
   to   { opacity: 1; transform: none; filter: blur(0); }
 }
 
@@ -510,11 +519,11 @@ body {
   .sda-reveal--pop  { animation-name: sda-pop; }
 }
 @keyframes sda-left {
-  from { opacity: 0; transform: translateX(-42px); filter: blur(7px); }
+  from { opacity: 0; transform: translateX(-58px) translateY(8px); filter: blur(8px); }
   to   { opacity: 1; transform: none; filter: blur(0); }
 }
 @keyframes sda-pop {
-  from { opacity: 0; transform: translateY(30px) scale(0.93); filter: blur(6px); }
+  from { opacity: 0; transform: translateY(42px) scale(0.9); filter: blur(7px); }
   to   { opacity: 1; transform: none; filter: blur(0); }
 }
 
@@ -566,7 +575,7 @@ body {
 .sit-moss .medallion { box-shadow: 0 0 0 3px var(--bone-warm), 0 0 0 4px color-mix(in oklab, var(--ember-deep) 55%, transparent), 0 2px 1px rgba(0,0,0,.4), 0 16px 26px -14px rgba(0,0,0,.5); }
 
 /* --- CREME --- */
-.sit-creme { background: var(--bone); }
+.sit-creme { background: var(--bone-warm); }
 .sit-creme .card-title { color: var(--ink); }
 .sit-creme p.font-sans { color: var(--ink-soft); }
 .sit-creme > span[aria-hidden] { background: color-mix(in oklab, var(--ember-deep) 50%, transparent); }
@@ -579,10 +588,10 @@ body {
 .sit-terra > span[aria-hidden] { background: color-mix(in oklab, var(--ink-deep) 35%, transparent); }
 .sit-terra .medallion { box-shadow: 0 0 0 3px var(--bone), 0 0 0 4px color-mix(in oklab, var(--ink-deep) 45%, transparent), 0 2px 1px rgba(0,0,0,.35), 0 16px 26px -14px rgba(0,0,0,.45); }
 
-/* --- VERDE ESCURO --- */
-.sit-verde { background: var(--ink-deep); }
+/* --- VERDE ESCURO --- (separado do fundo --ink-deep: musgo profundo) */
+.sit-verde { background: color-mix(in oklab, var(--moss) 46%, var(--ink-deep)); }
 .sit-verde .card-title { color: var(--bone); }
-.sit-verde p.font-sans { color: color-mix(in oklab, var(--bone) 82%, transparent); }
+.sit-verde p.font-sans { color: color-mix(in oklab, var(--bone) 84%, transparent); }
 .sit-verde > span[aria-hidden] { background: color-mix(in oklab, var(--ember) 70%, transparent); }
 .sit-verde .medallion { box-shadow: 0 0 0 3px var(--bone-warm), 0 0 0 4px color-mix(in oklab, var(--ember-deep) 55%, transparent), 0 2px 1px rgba(0,0,0,.4), 0 16px 26px -14px rgba(0,0,0,.5); }
 
@@ -617,6 +626,17 @@ body {
   border: 1px solid color-mix(in oklab, var(--ink-deep) 12%, transparent);
   box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.55);
   backdrop-filter: none;
+  transition: transform 0.5s var(--ease-out-quint), box-shadow 0.5s var(--ease-out-quint), border-color 0.5s ease;
+}
+/* hover sutil (fallback sem JS e no toque não aplica; no desktop com JS o tilt assume o transform) */
+#abordagem .editorial-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 42px 72px -34px rgba(0, 0, 0, 0.62);
+  border-color: color-mix(in oklab, var(--ember-deep) 26%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  #abordagem .editorial-card { transition: none; }
+  #abordagem .editorial-card:hover { transform: none; }
 }
 #abordagem .timeline-rail {
   background: color-mix(in oklab, var(--bone) 22%, transparent);
