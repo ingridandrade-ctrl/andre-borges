@@ -799,8 +799,15 @@ body {
   color: var(--bone);
 }
 /* beneficios — brilho quente do card + leve levantadinha */
-#beneficios article.is-active { transform: translateY(-4px); }
-#beneficios article.is-active > .transition-opacity { opacity: 1 !important; }
+#beneficios article.is-active {
+  transform: translateY(-4px);
+  background: color-mix(in oklab, var(--ember) 11%, var(--bone)) !important;
+  border-color: color-mix(in oklab, var(--ember-deep) 26%, transparent) !important;
+}
+#beneficios article.is-active > .transition-opacity {
+  opacity: 1 !important;
+  background: radial-gradient(130% 95% at 88% 0%, color-mix(in oklab, var(--ember) 26%, transparent) 0%, transparent 62%) !important;
+}
 /* situações — spotlight aceso + leve levantadinha */
 #o-que-escuto .situacao-card.is-active { transform: translateY(-4px); }
 #o-que-escuto .situacao-card.is-active::before { opacity: 0.5; }

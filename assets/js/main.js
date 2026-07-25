@@ -267,7 +267,7 @@
         entries.forEach(function (en) {
           en.target.classList.toggle("is-active", en.isIntersecting);
         });
-      }, { rootMargin: "-42% 0px -42% 0px", threshold: 0 });
+      }, { rootMargin: "-32% 0px -32% 0px", threshold: 0 });
       Array.prototype.forEach.call(mobileFx, function (c) { fxIO.observe(c); });
     }
   }
