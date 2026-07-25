@@ -298,9 +298,13 @@ body {
   @media (max-width: 480px) {
     .btn-ink {
       font-size: 0.98rem;
-      padding: 0.85rem 1.4rem;
-      white-space: nowrap;
+      padding: 0.8rem 1.35rem;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.25;
+      max-width: 100%;
     }
+    .btn-ink > span { text-wrap: balance; }
   }
   @media (prefers-reduced-motion: reduce) {
     .btn-ink::after { animation: none; opacity: 0; }
