@@ -292,6 +292,21 @@ body {
   /* botão da hero num terracota mais vivo */
   .btn-hero { background: #d65e30; }
   .btn-hero:hover { background: #c9542a; }
+
+  /* botão sólido dos cards de atendimento (mesmo laranja da hero) */
+  .btn-card {
+    background: #d65e30;
+    color: var(--bone);
+    box-shadow: 0 12px 24px -14px rgba(20, 32, 26, 0.45);
+    transition: background 0.25s ease, transform 0.3s var(--ease-out-quint), box-shadow 0.3s ease;
+  }
+  .btn-card:hover {
+    background: #c9542a;
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px -14px rgba(20, 32, 26, 0.5);
+  }
+  .btn-card svg { transition: transform var(--dur-base) var(--ease-out-quint); }
+  .btn-card:hover svg { transform: translate(2px, -2px); }
   .btn-ink:active {
     transform: translateY(0) scale(0.97);
     transition-duration: 0.12s;
