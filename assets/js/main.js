@@ -100,22 +100,14 @@
         p.style.transition =
           "grid-template-rows 0.5s cubic-bezier(0.22,1,0.36,1), visibility 0.5s";
       }
-      w.classList.toggle("bg-ink", open);
-      w.classList.toggle("text-bone", open);
-      w.classList.toggle("border-ink", open);
-      w.classList.toggle("bg-moss-light", !open);
-      w.classList.toggle("border-ink/10", !open);
-      w.classList.toggle("hover:border-ink/30", !open);
+      /* o cartão fica sempre em verde escuro; ao abrir só realça a borda.
+         a resposta (folha clara) aparece pelo grid que expande. */
+      w.classList.toggle("is-open", open);
       var circle = b.querySelector("span.shrink-0");
       if (circle) {
         circle.className = open
           ? "shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center transition bg-ember text-ink"
-          : "shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center transition border border-ink/20 text-ink";
-      }
-      var answer = p && p.querySelector("p");
-      if (answer) {
-        answer.classList.toggle("text-bone/85", open);
-        answer.classList.toggle("text-ink-soft", !open);
+          : "shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center transition border border-bone/25 text-bone/70";
       }
     }
 

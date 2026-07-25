@@ -436,6 +436,22 @@ body {
     transform: rotate(45deg); /* o "+" vira "×" */
   }
 
+  /* Cartão em verde escuro; ao abrir, só a resposta fica clara. */
+  .faq-card {
+    background: color-mix(in oklab, var(--sage) 30%, var(--ink-deep));
+    border-color: color-mix(in oklab, var(--moss-light) 20%, transparent);
+  }
+  .faq-card:hover {
+    border-color: color-mix(in oklab, var(--moss-light) 40%, transparent);
+  }
+  .faq-card.is-open {
+    border-color: color-mix(in oklab, var(--moss-light) 34%, transparent);
+  }
+  /* painel da resposta: folha clara (só aparece quando o item abre) */
+  .faq-answer {
+    background: var(--bone);
+  }
+
   /* ---------- detalhes ---------- */
   .tilt-l { transform: rotate(-1.5deg); }
   .tilt-r { transform: rotate(2deg); }
