@@ -165,7 +165,7 @@
       cycle = setInterval(function () {
         current = (current + 1) % lis.length;
         highlight(current);
-      }, 2600);
+      }, 1600);
     }
     function stop() { clearInterval(cycle); cycle = null; }
     highlight(current);
