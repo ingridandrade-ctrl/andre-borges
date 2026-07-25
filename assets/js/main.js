@@ -442,16 +442,6 @@
       wash.className = "bene-wash";
       wash.setAttribute("aria-hidden", "true");
       card.insertBefore(wash, card.firstChild);
-      // numeral gigante fantasma (extrai do kicker "01 · ...")
-      var kicker = card.querySelector("span.font-mono");
-      var num = kicker ? ((kicker.textContent.trim().match(/^\d+/) || [""])[0]) : "";
-      if (num) {
-        var ghost = document.createElement("span");
-        ghost.className = "bene-ghost";
-        ghost.setAttribute("aria-hidden", "true");
-        ghost.textContent = num;
-        card.appendChild(ghost);
-      }
       // botão circular com seta no topo direito
       var topRow = card.querySelector(".flex.items-start.justify-between");
       if (topRow) {

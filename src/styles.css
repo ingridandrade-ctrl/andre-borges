@@ -747,9 +747,9 @@ body {
   opacity: 0;
   pointer-events: none;
   background: linear-gradient(125deg,
-    color-mix(in oklab, var(--ember) 8%, var(--bone)) 0%,
-    color-mix(in oklab, var(--ember) 26%, var(--bone)) 55%,
-    color-mix(in oklab, var(--ember) 52%, var(--bone)) 100%);
+    color-mix(in oklab, var(--ember) 5%, var(--bone)) 0%,
+    color-mix(in oklab, var(--ember) 16%, var(--bone)) 55%,
+    color-mix(in oklab, var(--ember) 34%, var(--bone)) 100%);
   transition: opacity 0.55s var(--ease-out-quint);
 }
 #beneficios article.group:hover .bene-wash { opacity: 1; }
