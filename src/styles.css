@@ -348,20 +348,18 @@ body {
   }
   .situacao-card:hover .medallion { transform: scale(1.04) rotate(1.5deg); }
 
-  /* medalhão sem moldura: arte recortada, fundo transparente.
-     altura fixa + margem negativa de metade => metade dentro, metade fora */
+  /* ícone sem moldura: arte recortada, transparente, DENTRO do card.
+     ajustado numa caixa (max-w x max-h) p/ tamanho visual uniforme;
+     sem sombra e sem movimento */
   .medallion-free {
-    --mf-h: clamp(128px, 17vw, 176px);
     display: block;
-    height: var(--mf-h);
     width: auto;
-    max-width: 92%;
-    margin: calc(var(--mf-h) / -2) auto 0.6rem;
+    height: auto;
+    max-width: min(72%, 232px);
+    max-height: clamp(90px, 11vw, 116px);
+    margin: 0 auto 0.9rem;
     object-fit: contain;
-    filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.38));
-    transition: transform var(--dur-slow) var(--ease-out-quint);
   }
-  .situacao-card:hover .medallion-free { transform: scale(1.05) rotate(-1deg); }
 
   /* ---------- linha do tempo (abordagem) ---------- */
   .timeline-rail {
