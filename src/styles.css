@@ -818,6 +818,9 @@ body {
 /* ---------- parallax interno de imagens de fundo ---------- */
 .parallax-media { will-change: transform; }
 
+/* hero mobile congelada no corte certo (zoom fixo, sem parallax/pulo ao rolar) */
+.hero-frozen { transform: scale(1.12); transform-origin: center center; }
+
 /* ---------- tilt 3D + spotlight nos cards ---------- */
 .tilt-target { transform-origin: center; }
 .tilt-target.is-tilting { transform-style: preserve-3d; }

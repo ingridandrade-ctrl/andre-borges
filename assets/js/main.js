@@ -404,8 +404,10 @@
       el.style.willChange = "transform";
       pItems.push({ el: el, box: el, type: "frame", speed: parseFloat(el.getAttribute("data-parallax")) || 0.1 });
     });
+    /* hero-mobile fica de fora: congelado no corte certo via CSS (.hero-frozen),
+       sem parallax/zoom-ao-rolar no celular */
     var mediaSel = [
-      "hero-desktop", "hero-mobile", "manifesto-leighton",
+      "hero-desktop", "manifesto-leighton",
       "secaofinal-desktop", "closing-mobile", "diptych-couple", "diptych-desktop"
     ];
     mediaSel.forEach(function (key) {
