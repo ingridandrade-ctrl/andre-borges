@@ -872,7 +872,8 @@ body {
     color-mix(in oklab, var(--ember) 34%, var(--bone)) 100%);
   transition: opacity 0.55s var(--ease-out-quint);
 }
-#beneficios article.group:hover .bene-wash { opacity: 1; }
+#beneficios article.group:hover .bene-wash,
+#beneficios article.group.is-active .bene-wash { opacity: 1; }
 
 /* numeral gigante fantasma no canto inferior direito */
 #beneficios .bene-ghost {
@@ -890,7 +891,8 @@ body {
   pointer-events: none;
   transition: opacity 0.5s ease, transform 0.6s var(--ease-out-quint);
 }
-#beneficios article.group:hover .bene-ghost { opacity: 1; transform: none; }
+#beneficios article.group:hover .bene-ghost,
+#beneficios article.group.is-active .bene-ghost { opacity: 1; transform: none; }
 
 /* botão circular com seta no topo direito */
 #beneficios .bene-arrow {
@@ -906,20 +908,24 @@ body {
   transform: scale(0.7);
   transition: opacity 0.4s ease, transform 0.45s var(--ease-spring);
 }
-#beneficios article.group:hover .bene-arrow { opacity: 1; transform: none; }
+#beneficios article.group:hover .bene-arrow,
+#beneficios article.group.is-active .bene-arrow { opacity: 1; transform: none; }
 
 /* barra lateral acende por inteiro */
-#beneficios article.group:hover > div[class*="w-[3px]"] {
+#beneficios article.group:hover > div[class*="w-[3px]"],
+#beneficios article.group.is-active > div[class*="w-[3px]"] {
   height: 82% !important;
   background: var(--ember-deep) !important;
 }
 /* linha de base completa em terracota */
-#beneficios article.group:hover div[class*="h-px"] {
+#beneficios article.group:hover div[class*="h-px"],
+#beneficios article.group.is-active div[class*="h-px"] {
   width: 100% !important;
   background: var(--ember-deep) !important;
 }
 /* kicker escurece sobre a lavagem */
-#beneficios article.group:hover span[class*="font-mono"] {
+#beneficios article.group:hover span[class*="font-mono"],
+#beneficios article.group.is-active span[class*="font-mono"] {
   color: var(--ink-deep) !important;
 }
 /* o spotlight genérico sai de cena nesta seção (a lavagem assume) */
