@@ -289,13 +289,46 @@ body {
     background: color-mix(in oklab, var(--ember-deep) 82%, var(--ember));
     box-shadow: 0 16px 30px -14px rgba(20, 32, 26, 0.45);
   }
-  /* painel de evidência (EFT) — suave e arejado */
+  /* painel de evidência (EFT) — vidro fosco em duas zonas, estilo Apple */
   .eft-panel {
-    background:
-      radial-gradient(120% 80% at 50% -10%, color-mix(in oklab, var(--ember) 8%, transparent) 0%, transparent 55%),
-      linear-gradient(180deg, var(--bone) 0%, color-mix(in oklab, var(--bone-warm) 55%, var(--bone)) 100%);
-    box-shadow: 0 34px 70px -38px rgba(20, 32, 26, 0.32);
+    background: color-mix(in oklab, var(--bone) 58%, transparent);
+    -webkit-backdrop-filter: blur(18px) saturate(122%);
+    backdrop-filter: blur(18px) saturate(122%);
+    border: 1px solid color-mix(in oklab, var(--bone-warm) 55%, transparent);
+    box-shadow:
+      0 42px 90px -48px rgba(20, 32, 26, 0.42),
+      0 6px 18px -10px rgba(20, 32, 26, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.55);
   }
+  /* zona A — impacto (título + números) num tom quente */
+  .eft-top {
+    background:
+      radial-gradient(120% 95% at 50% -15%, color-mix(in oklab, var(--ember) 22%, transparent) 0%, transparent 62%),
+      linear-gradient(180deg, color-mix(in oklab, var(--ember) 15%, transparent) 0%, color-mix(in oklab, var(--ember) 5%, transparent) 100%);
+  }
+  /* zona B — leitura, mais clara e neutra */
+  .eft-body {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--bone) 84%, #fff) 0%, color-mix(in oklab, var(--bone) 68%, transparent) 100%);
+    border-top: 1px solid color-mix(in oklab, var(--ember-deep) 14%, transparent);
+  }
+  /* brilho que acende no hover (desktop) / ao passar pelo centro (mobile) */
+  .eft-glow {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(85% 55% at 50% 0%, color-mix(in oklab, var(--ember) 28%, transparent) 0%, transparent 70%);
+    transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .eft-panel:hover, .eft-panel.is-active {
+    border-color: color-mix(in oklab, var(--ember-deep) 34%, transparent);
+    box-shadow:
+      0 58px 120px -46px rgba(20, 32, 26, 0.5),
+      0 10px 26px -12px rgba(176, 84, 48, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  .eft-panel:hover .eft-glow, .eft-panel.is-active .eft-glow { opacity: 1; }
   /* números com degradê quente sutil (toque moderno) */
   .eft-count {
     display: inline-block;

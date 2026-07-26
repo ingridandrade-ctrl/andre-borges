@@ -297,7 +297,7 @@
 
     /* acende o efeito de cada card ao passar pelo centro da tela */
     var mobileFx = document.querySelectorAll(
-      "#atendimento article.editorial-card, #beneficios article.group, #o-que-escuto .situacao-card"
+      "#atendimento article.editorial-card, #beneficios article.group, #o-que-escuto .situacao-card, #beneficios .eft-panel"
     );
     if ("IntersectionObserver" in window && mobileFx.length) {
       var fxIO = new IntersectionObserver(function (entries) {
