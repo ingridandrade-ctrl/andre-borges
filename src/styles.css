@@ -35,7 +35,10 @@
   --ring: var(--ember-deep);
 
   /* == 3. Sombras == */
-  --shadow-card: 0 22px 44px -30px rgba(20, 32, 26, 0.25);
+  --shadow-card:
+    0 1px 2px rgba(20, 32, 26, 0.05),
+    0 14px 30px -14px rgba(20, 32, 26, 0.16),
+    0 40px 60px -40px rgba(20, 32, 26, 0.18);
   --shadow-btn: 0 18px 36px -18px rgba(20, 32, 26, 0.55);
   --shadow-btn-hover: 0 24px 44px -18px rgba(20, 32, 26, 0.6);
   --shadow-float: 0 30px 60px -30px rgba(0, 0, 0, 0.5);
@@ -399,14 +402,15 @@ body {
   /* ---------- cartões editoriais ---------- */
   .editorial-card {
     background: var(--bone);
-    border: 1px solid var(--border-subtle);
+    border: 1px solid color-mix(in oklab, var(--ink) 8%, transparent);
     border-radius: var(--radius-card);
-    box-shadow: var(--shadow-card);
+    /* acabamento Apple: sombra em camadas + fio de luz no topo */
+    box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.65);
   }
   .on-dark .editorial-card {
     background: color-mix(in oklab, var(--bone) 6%, transparent);
     border-color: var(--border-on-dark);
-    box-shadow: none;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 
   /* ---------- cards de situação (medalhões) ----------
@@ -682,7 +686,7 @@ body {
 /* acabamento comum das placas (borda + sombra de contato) */
 #o-que-escuto .situacao-card {
   border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.4), 0 16px 26px -14px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.4), 0 20px 34px -18px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* --- MUSGO --- */
@@ -889,8 +893,21 @@ body {
    #beneficios — hover "editorial quente" (referência do cliente)
    Elementos .bene-* são injetados pelo JS em cada card.
    ============================================================ */
-#beneficios article.group { isolation: isolate; }
+#beneficios article.group {
+  isolation: isolate;
+  /* acabamento Apple: tile preciso flutuando sobre o creme */
+  border: 1px solid color-mix(in oklab, var(--ink) 7%, transparent);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
 #beneficios article.group > .relative { z-index: 2; }
+/* ao acender, a sombra ganha profundidade (sem levantar/espaçar) */
+#beneficios article.group:hover, #beneficios article.group.is-active {
+  box-shadow:
+    0 2px 4px rgba(20, 32, 26, 0.06),
+    0 22px 44px -18px rgba(20, 32, 26, 0.22),
+    0 50px 80px -46px rgba(176, 84, 48, 0.20),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
 
 /* lavagem quente que cobre o card no hover */
 #beneficios .bene-wash {
