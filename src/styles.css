@@ -296,6 +296,15 @@ body {
       linear-gradient(180deg, var(--bone) 0%, color-mix(in oklab, var(--bone-warm) 55%, var(--bone)) 100%);
     box-shadow: 0 34px 70px -38px rgba(20, 32, 26, 0.32);
   }
+  /* números com degradê quente sutil (toque moderno) */
+  .eft-count {
+    display: inline-block;
+    background: linear-gradient(118deg, var(--ember-deep) 8%, var(--ember) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
 
   /* botão da hero num terracota mais vivo */
   .btn-hero { background: #d65e30; }

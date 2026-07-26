@@ -58,17 +58,39 @@
     });
   }
 
-  /* ---------- 1c. Painel EFT: desenha as réguas ao entrar na tela ---------- */
+  /* ---------- 1c. Painel EFT: contadores animados ao entrar na tela ---------- */
   var eftPanel = document.querySelector(".eft-panel");
   if (eftPanel) {
+    var counters = Array.prototype.slice.call(eftPanel.querySelectorAll(".eft-count"));
+    function runCount(el) {
+      var to = parseInt(el.getAttribute("data-to"), 10);
+      var loAttr = el.getAttribute("data-lo");
+      var lo = loAttr != null ? parseInt(loAttr, 10) : null;
+      var dur = 1500, t0 = null;
+      function frame(ts) {
+        if (t0 === null) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        var e = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        var hi = Math.round(to * e);
+        el.textContent = lo != null ? (Math.round(lo * e) + "–" + hi) : String(hi);
+        if (p < 1) requestAnimationFrame(frame);
+        else el.textContent = lo != null ? (lo + "–" + to) : String(to);
+      }
+      requestAnimationFrame(frame);
+    }
     if (reduced || !("IntersectionObserver" in window)) {
       eftPanel.classList.add("is-shown");
     } else {
+      counters.forEach(function (el) { el.textContent = el.getAttribute("data-lo") != null ? "0–0" : "0"; });
       var eftIO = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add("is-shown"); eftIO.unobserve(e.target); }
+          if (e.isIntersecting) {
+            e.target.classList.add("is-shown");
+            counters.forEach(runCount);
+            eftIO.unobserve(e.target);
+          }
         });
-      }, { threshold: 0.3 });
+      }, { threshold: 0.4 });
       eftIO.observe(eftPanel);
     }
   }
