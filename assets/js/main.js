@@ -174,7 +174,7 @@
         text.style.removeProperty("font-weight");
       }
     });
-    var current = 3, cycle = null;
+    var current = 0, cycle = null, seen = false;
     function highlight(index) {
       lis.forEach(function (li, i) { li.classList.toggle("is-active", i === index); });
     }
@@ -183,12 +183,24 @@
       cycle = setInterval(function () {
         current = (current + 1) % lis.length;
         highlight(current);
-      }, 1300);
+      }, 900);
     }
     function stop() { clearInterval(cycle); cycle = null; }
-    highlight(current);
-    start();
     var ul = manifesto.querySelector("ul");
+    // só acende quando a lista entra em cena — começando pela primeira, sem espera
+    if ("IntersectionObserver" in window && ul) {
+      var mio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            if (!seen) { seen = true; current = 0; highlight(0); }
+            start();
+          } else { stop(); }
+        });
+      }, { threshold: 0.4 });
+      mio.observe(ul);
+    } else {
+      highlight(0); start();
+    }
     if (ul) ul.addEventListener("mouseleave", start);
     lis.forEach(function (li, i) {
       li.addEventListener("mouseenter", function () {
