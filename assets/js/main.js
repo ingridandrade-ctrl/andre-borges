@@ -420,7 +420,7 @@
        sem parallax/zoom-ao-rolar no celular */
     var mediaSel = [
       "hero-desktop", "manifesto-leighton",
-      "secaofinal-desktop", "closing-mobile", "diptych-couple", "diptych-desktop"
+      "diptych-couple", "diptych-desktop"
     ];
     mediaSel.forEach(function (key) {
       var img = document.querySelector('img[src*="' + key + '"]');
