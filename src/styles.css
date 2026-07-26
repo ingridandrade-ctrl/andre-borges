@@ -315,6 +315,18 @@ body {
   #atendimento .editorial-card:hover .card-body strong,
   #atendimento .editorial-card.is-active .card-body strong { color: var(--bone); }
 
+  /* chip de check dos cards de atendimento (adapta quando o card acende) */
+  .check-chip {
+    background: color-mix(in oklab, var(--moss) 18%, transparent);
+    color: color-mix(in oklab, var(--moss) 92%, var(--ink));
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+  #atendimento .editorial-card:hover .check-chip,
+  #atendimento .editorial-card.is-active .check-chip {
+    background: color-mix(in oklab, var(--moss-light) 30%, transparent);
+    color: var(--bone);
+  }
+
   /* botão discreto dos cards de atendimento (verde musgo) */
   .btn-card {
     background: var(--moss);
